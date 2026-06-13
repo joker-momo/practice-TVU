@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TVU Memorizer - Ôn Tập Ghi Nhớ Câu Hỏi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+  <!-- Prism JS syntax theme -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Noise Overlay for premium paper texture -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+  
+  <div id="app" class="app-container">
+    <!-- UI will render dynamically here -->
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.5/dist/tesseract.min.js"></script>
+  <!-- Supabase SDK (standalone build → global window.supabase, classic script, file://-safe) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!--
+    Nạp script nội bộ theo đúng thứ tự phụ thuộc, kèm ?v=APP_VERSION để chống cache.
+    => Mỗi lần cập nhật code, ĐỔI APP_VERSION bên dưới (vd tăng số / đổi ngày)
+       thì trình duyệt + host tự tải bản mới, người dùng khỏi hard-reload.
+    document.write giữ thứ tự thực thi đồng bộ, chạy được cả trên file://.
+  -->
+  <script>
+    (function () {
+      var APP_VERSION = "2026-06-14.2"; // 🔁 ĐỔI MỖI KHI DEPLOY BẢN MỚI
+      var files = [
+        "questions.js",
+        "js/supabase.js",
+        "js/admin.js",
+        "js/utils.js",
+        "js/ocr.js",
+        "js/state.js",
+        "js/components/sidebar.js",
+        "js/components/quiz.js",
+        "js/components/flashcard.js",
+        "js/components/editor.js",
+        "js/app.js"
+      ];
+      for (var i = 0; i < files.length; i++) {
+        document.write('<script src="' + files[i] + '?v=' + APP_VERSION + '"><\/script>');
+      }
+    })();
+  </script>
+</body>
+</html>

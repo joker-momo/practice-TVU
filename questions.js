@@ -1,0 +1,57 @@
+// Dữ liệu câu hỏi dùng chung (public). Nạp dạng global để chạy được cả khi mở file://
+// Cập nhật bằng nút "Xuất file JS" trong tab Quản lý, rồi commit file này lên host.
+window.QUESTIONS_DATA = {
+  "subjects": [
+    {
+      "id": "subj-javascript",
+      "name": "JavaScript Core",
+      "questions": [
+        {
+          "id": "q-js-1",
+          "questionText": "Kết quả của đoạn mã dưới đây là gì?",
+          "codeSnippet": "const arr = [1, 2, 3];\narr[10] = 11;\nconsole.log(arr.length);",
+          "options": [
+            "3",
+            "10",
+            "11",
+            "undefined"
+          ],
+          "correctIndex": 2,
+          "explanation": "Khi gán arr[10] = 11, mảng arr sẽ tự động mở rộng độ dài (length) để chứa phần tử tại chỉ số 10. Do mảng được đánh chỉ số từ 0, phần tử thứ 11 có chỉ số là 10. Độ dài mới của mảng sẽ là 11. Các chỉ số từ 3 đến 9 sẽ chứa giá trị empty (undefined)."
+        },
+        {
+          "id": "q-js-2",
+          "questionText": "Khởi chạy đoạn mã sau sẽ in ra màn hình kết quả gì?",
+          "codeSnippet": "console.log(typeof typeof 1);",
+          "options": [
+            "\"number\"",
+            "\"string\"",
+            "\"undefined\"",
+            "Error"
+          ],
+          "correctIndex": 1,
+          "explanation": "typeof 1 trả về chuỗi \"number\". Sau đó typeof \"number\" trả về chuỗi \"string\" vì kết quả của toán tử typeof luôn là một chuỗi mô tả kiểu dữ liệu."
+        }
+      ]
+    },
+    {
+      "id": "subj-css",
+      "name": "CSS Layouts",
+      "questions": [
+        {
+          "id": "q-css-1",
+          "questionText": "Thuộc tính nào của CSS Grid dùng để định nghĩa kích thước tối thiểu và tối đa cho một cột?",
+          "codeSnippet": ".grid-container {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n}",
+          "options": [
+            "min-max()",
+            "minmax()",
+            "clamp()",
+            "limit()"
+          ],
+          "correctIndex": 1,
+          "explanation": "Hàm minmax(min, max) định nghĩa một khoảng kích thước lớn hơn hoặc bằng min và nhỏ hơn hoặc bằng max cho grid track."
+        }
+      ]
+    }
+  ]
+};

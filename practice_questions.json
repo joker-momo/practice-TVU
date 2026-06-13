@@ -1,0 +1,522 @@
+[
+  {
+    "stt": 1,
+    "cau_hoi": "Địa chỉ IP là gì?",
+    "danh_sach_dap_an": [
+      "A. Là một địa chỉ email",
+      "B. Là địa chỉ máy tính trên mạng",
+      "C. Là địa chỉ người dùng phải nhớ nếu muốn truy cập web.",
+      "D. Là địa chỉ quản lý tên miền"
+    ],
+    "dap_an_dung": "Là địa chỉ máy tính trên mạng",
+    "giai_thich": "",
+    "tham_khao": "Địa chỉ IP và tên miền"
+  },
+  {
+    "stt": 2,
+    "cau_hoi": "Địa chỉ IP lớp C có bao nhiêu bit dành cho phần mạng?",
+    "danh_sach_dap_an": [
+      "A. 16",
+      "B. 4",
+      "C. 24",
+      "D. 8"
+    ],
+    "dap_an_dung": "24",
+    "giai_thich": "",
+    "tham_khao": "Địa chỉ IP và tên miền"
+  },
+  {
+    "stt": 3,
+    "cau_hoi": "Internet được chính thức cho phép hoạt động tại Việt Nam vào năm nào?",
+    "danh_sach_dap_an": [
+      "A. 1999",
+      "B. 1993",
+      "C. 1995",
+      "D. 1997"
+    ],
+    "dap_an_dung": "1997",
+    "giai_thich": "Lịch sử Internet Việt Nam ghi nhận ngày 19/11/1997 là ngày Việt Nam chính thức kết nối với xa lộ thông tin của thế giới.",
+    "tham_khao": "Lịch sử phát triển Internet tại Việt Nam"
+  },
+  {
+    "stt": 4,
+    "cau_hoi": "Địa chỉ IPv4 nào sau đây là địa chỉ IP của lớp B?",
+    "danh_sach_dap_an": [
+      "A. 10.30.0.253",
+      "B. 172.16.0.253",
+      "C. 192.168.0.25",
+      "D. 10.5.0.200"
+    ],
+    "dap_an_dung": "172.16.0.253",
+    "giai_thich": "",
+    "tham_khao": "Địa chỉ IP và tên miền"
+  },
+  {
+    "stt": 5,
+    "cau_hoi": "Mạng ARPANET ra đời vào năm nào?",
+    "danh_sach_dap_an": [
+      "A. 1971",
+      "B. 1970",
+      "C. 1965",
+      "D. 1969"
+    ],
+    "dap_an_dung": "1969",
+    "giai_thich": "",
+    "tham_khao": "Lịch sử phát triển Internet"
+  },
+  {
+    "stt": 6,
+    "cau_hoi": "Truy cập Internet bằng đường truyền ADSL là truy cập bất đối xứng. Anh/ chị hãy cho biết truy cập bất đối xứng trong ADSL có nghĩa là gì?",
+    "danh_sach_dap_an": [
+      "A. Tốc độ truyền xuống (download) nhỏ hơn tốc độ truyền lên (upload)",
+      "B. Tốc độ truyền xuống (download) bằng tốc độ truyền lên (upload)",
+      "C. Tốc độ truyền lên (upload) là không cần thiết",
+      "D. Tốc độ truyền xuống (download) lớn hơn tốc độ truyền lên (upload)"
+    ],
+    "dap_an_dung": "Tốc độ truyền xuống (download) lớn hơn tốc độ truyền lên (upload)",
+    "giai_thich": "",
+    "tham_khao": "Các phương thức kết nối Internet"
+  },
+  {
+    "stt": 7,
+    "cau_hoi": "Máy chủ chứa dịch vụ web còn được gọi là",
+    "danh_sach_dap_an": [
+      "A. Mail Server",
+      "B. Work Station",
+      "C. Web Server",
+      "D. Server"
+    ],
+    "dap_an_dung": "Web Server",
+    "giai_thich": "",
+    "tham_khao": "World Wide Web và HyperText Markup Language"
+  },
+  {
+    "stt": 8,
+    "cau_hoi": "Tên miền rdi.tvu.edu.vn là tên miền con của tên miền nào sau đây?",
+    "danh_sach_dap_an": [
+      "A. rdi.vn",
+      "B. tvu.rdi.vn",
+      "C. rdi.edu.vn",
+      "D. tvu.edu.vn"
+    ],
+    "dap_an_dung": "tvu.edu.vn",
+    "giai_thich": "rdi.tvu.edu.vn là tên miền con của tên miền cha tvu.edu.vn",
+    "tham_khao": "Địa chỉ IP và tên miền (tiếp theo)"
+  },
+  {
+    "stt": 9,
+    "cau_hoi": "Đâu KHÔNG phải ưu điểm của việc sử dụng đường truyền cáp quang để kết nối Internet?",
+    "danh_sach_dap_an": [
+      "A. Không bị nhiễu do thời tiết",
+      "B. Lắp đặt đơn giản",
+      "C. Lưu lượng truy cập lớn",
+      "D. Tốc độ truy cập nhanh"
+    ],
+    "dap_an_dung": "Lắp đặt đơn giản",
+    "giai_thich": "",
+    "tham_khao": "Các phương thức kết nối Internet (tiếp theo)"
+  },
+  {
+    "stt": 10,
+    "cau_hoi": "Một địa chỉ IPv4: 172.16.10.10 (chuẩn) có hai phần là phần địa chỉ mạng (network Id) và địa chỉ máy (host Id). Anh/ chị hãy cho biết đâu là địa chỉ mạng của địa chỉ IP 172.16.10.10?",
+    "danh_sach_dap_an": [
+      "A. 172.16.10",
+      "B. 172.16",
+      "C. 172",
+      "D. 16.10.10"
+    ],
+    "dap_an_dung": "172.16",
+    "giai_thich": "",
+    "tham_khao": "Địa chỉ IP và tên miền"
+  },
+  {
+    "stt": 11,
+    "cau_hoi": "Chuẩn giao thức nào được sử dụng cho mạng Internet?",
+    "danh_sach_dap_an": [
+      "A. IPX/SPX",
+      "B. H.324",
+      "C. TCP/IP",
+      "D. NETBEUI"
+    ],
+    "dap_an_dung": "TCP/IP",
+    "giai_thich": "Năm 1983, giao thức TCP/IP chính thức được coi như một chuẩn đối với ngành quân sự Mỹ và tất cả các máy tính nối với ARPANET phải sử dụng chuẩn mới này.",
+    "tham_khao": "Khái niệm về Internet"
+  },
+  {
+    "stt": 12,
+    "cau_hoi": "Để tìm kiếm chính xác những trang web có cụm từ đào tạo trực tuyến, người dùng nhập vào ô tìm kiếm nội dung gì?",
+    "danh_sach_dap_an": [
+      "A. “đào tạo trực tuyến”",
+      "B. “đào tạo” & “trực tuyến”",
+      "C. #đào tạo trực tuyến",
+      "D. $đào tạo trực tuyến"
+    ],
+    "dap_an_dung": "“đào tạo trực tuyến”",
+    "giai_thich": "",
+    "tham_khao": "Tìm kiếm thông tin trên Internet"
+  },
+  {
+    "stt": 13,
+    "cau_hoi": "Bộ máy tìm kiếm nào do Việt Nam phát triển?",
+    "danh_sach_dap_an": [
+      "A. YAHOO",
+      "B. CỐC CỐC",
+      "C. DUCK DUCK GO",
+      "D. BAIDU"
+    ],
+    "dap_an_dung": "CỐC CỐC",
+    "giai_thich": "",
+    "tham_khao": "Tìm kiếm thông tin trên Internet"
+  },
+  {
+    "stt": 14,
+    "cau_hoi": "Gmail là dịch vụ thư điện tử của công ty/tập đoàn nào?",
+    "danh_sach_dap_an": [
+      "A. Apple",
+      "B. Google",
+      "C. Microsoft",
+      "D. Yahoo"
+    ],
+    "dap_an_dung": "Google",
+    "giai_thich": "",
+    "tham_khao": "Dịch vụ Thư điện tử (Email)"
+  },
+  {
+    "stt": 15,
+    "cau_hoi": "Giả sử trang web myph.vn đang được bảo trì. Để truy cập nội dung của trang web này trên máy chủ tìm kiếm Google, người học nhập vào ô tìm kiếm nội dung gì?",
+    "danh_sach_dap_an": [
+      "A. SITE:myph.vn",
+      "B. RELATED:myph.vn",
+      "C. CACHE:myph.vn",
+      "D. INFO:myph.vn"
+    ],
+    "dap_an_dung": "CACHE:myph.vn",
+    "giai_thich": "",
+    "tham_khao": "Tìm kiếm thông tin trên Internet"
+  },
+  {
+    "stt": 16,
+    "cau_hoi": "Trình duyệt nào sau đây là trình duyệt được cài đặt kèm theo hệ điều hành Mac OS X?",
+    "danh_sach_dap_an": [
+      "A. Chrome",
+      "B. Safari",
+      "C. Opera",
+      "D. Firefox"
+    ],
+    "dap_an_dung": "Safari",
+    "giai_thich": "",
+    "tham_khao": "Trình duyệt Web"
+  },
+  {
+    "stt": 17,
+    "cau_hoi": "CC (Carbon Copy) trong gửi email có tác dụng gì?",
+    "danh_sach_dap_an": [
+      "A. Dùng để nhập nội dung thư điện tử",
+      "B. Dùng để nhập chủ đề của thư điện tử",
+      "C. Dùng để nhập địa chỉ của người đồng nhận thư",
+      "D. Dùng để nhập vào địa chỉ của người gửi"
+    ],
+    "dap_an_dung": "Dùng để nhập địa chỉ của người đồng nhận thư",
+    "giai_thich": "Người có địa chỉ nhập vào mục CC sẽ nhận nội dung thư với mục đích báo cáo.",
+    "tham_khao": "Dịch vụ Thư điện tử (Email)"
+  },
+  {
+    "stt": 18,
+    "cau_hoi": "Để tìm kiếm những trang web có chứa từ Internet đồng thời loại bỏ kết quả tìm kiếm từ trang wikipedia.org, người học nhập vào ô tìm kiếm nội dung gì?",
+    "danh_sach_dap_an": [
+      "A. Internet & wikipedia.org",
+      "B. Internet -wikipedia.org",
+      "C. Internet * wikipedia.org",
+      "D. Internet SITE:wikipedia.org"
+    ],
+    "dap_an_dung": "Internet -wikipedia.org",
+    "giai_thich": "",
+    "tham_khao": "Tìm kiếm thông tin trên Internet"
+  },
+  {
+    "stt": 19,
+    "cau_hoi": "Google KHÔNG hỗ trợ cách tìm kiếm nào sau đây?",
+    "danh_sach_dap_an": [
+      "A. Tìm kiếm đồng nghĩa",
+      "B. Tìm kiếm cụm từ đồng nghĩa",
+      "C. Tìm kiếm kết hợp",
+      "D. Tìm kiếm chính xác cụm từ"
+    ],
+    "dap_an_dung": "Tìm kiếm cụm từ đồng nghĩa",
+    "giai_thich": "",
+    "tham_khao": "Tìm kiếm thông tin trên Internet"
+  },
+  {
+    "stt": 20,
+    "cau_hoi": "Để người được chia sẻ file không thể chỉnh sửa nội dung file được chia sẻ, người học chọn phần quyền chia sẻ như thế nào?",
+    "danh_sach_dap_an": [
+      "A. Chọn quyền can view",
+      "B. Chọn quyền can copy",
+      "C. Chọn quyền can edit",
+      "D. Chọn quyền view only"
+    ],
+    "dap_an_dung": "Chọn quyền can view",
+    "giai_thich": "Để người được chia sẻ file không thể chỉnh sửa nội dung file được chia sẻ, người học chọn phần quyền chia sẻ can view",
+    "tham_khao": "Dịch vụ tập tin"
+  },
+  {
+    "stt": 21,
+    "cau_hoi": "Để tìm kiếm chính xác một chuỗi ký tự, anh/chị sử dụng biểu tượng/toán tử tìm kiếm nào?",
+    "danh_sach_dap_an": [
+      "A. Biểu tượng “”",
+      "B. Biểu tượng #",
+      "C. Biểu tượng ?",
+      "D. Biểu tượng $"
+    ],
+    "dap_an_dung": "Biểu tượng “”",
+    "giai_thich": "Để tìm kiếm chính xác một chuỗi ký tự, người ta sử dụng biểu tượng/toán tử tìm kiếm “”",
+    "tham_khao": "Tìm kiếm thông tin trên Internet"
+  },
+  {
+    "stt": 22,
+    "cau_hoi": "Khi tham gia các diễn đàn trên Internet, thông thường người dùng KHÔNG thể thực hiện thao tác nào sau đây?",
+    "danh_sach_dap_an": [
+      "A. Chỉnh sửa nội dung bài viết của người khác",
+      "B. Trả lời bài viết của người khác",
+      "C. Xem bài viết của người khác",
+      "D. Tạo bài viết mới"
+    ],
+    "dap_an_dung": "Chỉnh sửa nội dung bài viết của người khác",
+    "giai_thich": "",
+    "tham_khao": "Dịch vụ World Wide Web"
+  },
+  {
+    "stt": 23,
+    "cau_hoi": "Nhận định về Elearning nào SAI trong những nhận định sau?",
+    "danh_sach_dap_an": [
+      "A. Người học có thể học Elearning không cần trang bị máy tính, điện thoại thông minh hoặc máy tính bảng.",
+      "B. Người học tham gia lớp học Elearning không cần đến lớp.",
+      "C. Người học có thể học Elearning không cần phải có đường truyền Internet tại nhà.",
+      "D. Người học có thể học Elearning không cần đầu dĩa CD/VCD"
+    ],
+    "dap_an_dung": "Người học có thể học Elearning không cần trang bị máy tính, điện thoại thông minh hoặc máy tính bảng.",
+    "giai_thich": "",
+    "tham_khao": "Điều kiện học E-learning"
+  },
+  {
+    "stt": 24,
+    "cau_hoi": "Người học có thể hoàn toàn làm chủ quá trình học của bản thân, từ thời gian, lượng kiến thức cũng như thứ tự các bài học. Đây là đặc điểm nào của khóa học Elearning?",
+    "danh_sach_dap_an": [
+      "A. Hệ thống hóa.",
+      "B. Tương tác và hợp tác.",
+      "C. Dễ tiếp cận và truy cập.",
+      "D. Tính linh hoạt"
+    ],
+    "dap_an_dung": "Tính linh hoạt",
+    "giai_thich": "",
+    "tham_khao": "Ưu điểm của E-learning"
+  },
+  {
+    "stt": 25,
+    "cau_hoi": "Nhận định nào sau đây KHÔNG đúng về học theo phương thức Elearning?",
+    "danh_sach_dap_an": [
+      "A. Tương tác giữa giảng viên và người học là hoàn toàn trực tiếp.",
+      "B. Người học có thể lựa chọn lượng kiến thức phù hợp với bản thân.",
+      "C. Người học có thể học mọi lúc, mọi nơi.",
+      "D. Nội dung khóa học được cập nhật thường xuyên."
+    ],
+    "dap_an_dung": "Tương tác giữa giảng viên và người học là hoàn toàn trực tiếp.",
+    "giai_thich": "",
+    "tham_khao": "Định nghĩa E-learning"
+  },
+  {
+    "stt": 26,
+    "cau_hoi": "Tỷ lệ phần trăm nội dung được truyền tải qua Internet của các lớp học nhóm C là bao nhiêu?",
+    "danh_sach_dap_an": [
+      "A. 0 – 15%",
+      "B. 30 – 79%",
+      "C. 20 – 49%",
+      "D. 1 – 29%"
+    ],
+    "dap_an_dung": "30 – 79%",
+    "giai_thich": "",
+    "tham_khao": "Định nghĩa E-learning"
+  },
+  {
+    "stt": 27,
+    "cau_hoi": "Đâu là điểm yếu của hình thức trao đổi không đồng bộ?",
+    "danh_sach_dap_an": [
+      "A. Không có những mô tả trực quan",
+      "B. Thời gian phải cố định từ trước",
+      "C. Chỉ xoay quanh một sự kiện hoặc chủ đề cho tất cả người tham gia",
+      "D. Không có thời gian để suy nghĩ"
+    ],
+    "dap_an_dung": "Không có những mô tả trực quan",
+    "giai_thich": "",
+    "tham_khao": "Tập trung ôn tập trên hệ thống E-learning"
+  },
+  {
+    "stt": 28,
+    "cau_hoi": "Trong hoạt động thảo luận – giải đáp thắc mắc, hình thức đồng bộ bao gồm công cụ gì?",
+    "danh_sach_dap_an": [
+      "A. Diễn đàn môn học",
+      "B. Email",
+      "C. Phòng học ảo",
+      "D. Diễn đàn tin tức"
+    ],
+    "dap_an_dung": "Phòng học ảo",
+    "giai_thich": "",
+    "tham_khao": "Tập trung ôn tập trên hệ thống E-learning"
+  },
+  {
+    "stt": 29,
+    "cau_hoi": "Lợi thế của hình thức đồng bộ trong hoạt động thảo luận – giải đáp thắc mắc là gì?",
+    "danh_sach_dap_an": [
+      "A. Tự do về thời gian ôn tập, được hướng dẫn thực hiện.",
+      "B. Nội dung được chọn lọc, suy nghĩ.",
+      "C. Nội dung được trình diễn thời gian thực.",
+      "D. Tự thực hiện theo ý muốn."
+    ],
+    "dap_an_dung": "Nội dung được trình diễn thời gian thực.",
+    "giai_thich": "",
+    "tham_khao": "Tập trung ôn tập trên hệ thống E-learning"
+  },
+  {
+    "stt": 30,
+    "cau_hoi": "Bước 3 của quy trình học Elearning là gì?",
+    "danh_sach_dap_an": [
+      "A. Tập trung ôn tập và thi hết môn",
+      "B. Tìm hiểu thông tin lớp học",
+      "C. Đăng ký lớp học",
+      "D. Tập trung ôn tập trên hệ thống Elearning"
+    ],
+    "dap_an_dung": "Tập trung ôn tập trên hệ thống Elearning",
+    "giai_thich": "",
+    "tham_khao": "Tập trung ôn tập trên hệ thống E-learning"
+  },
+  {
+    "stt": 31,
+    "cau_hoi": "Sau khi người học đã hoàn thành một bài tập trắc nghiệm dùng để rèn luyện trên hệ thống Elearning, phát biểu nào là phát biểu đúng?",
+    "danh_sach_dap_an": [
+      "A. Khi người học trả lời không đúng, hệ thống sẽ hiển thị đáp án",
+      "B. Khi người học trả lời không đúng, hệ thống sẽ hiển thị hướng dẫn trả lời",
+      "C. Khi người học trả lời không đúng, hệ thống sẽ không hiển thị đáp án",
+      "D. Hệ thống luôn hiển thị đáp án"
+    ],
+    "dap_an_dung": "Hệ thống luôn hiển thị đáp án.",
+    "giai_thich": "",
+    "tham_khao": "Hướng dẫn sử dụng công cụ E-learning"
+  },
+  {
+    "stt": 32,
+    "cau_hoi": "Trong bảng trạng thái bài làm, các câu hỏi đặt cờ có ý nghĩa gì?",
+    "danh_sach_dap_an": [
+      "A. Để người học nhận biết được đó là các câu đã trả lời.",
+      "B. Để người học nhận biết được đó là các câu chưa trả lời.",
+      "C. Để người học xem xét lại sau khi thực hiện các câu hỏi trắc nghiệm khác.",
+      "D. Để người học đánh dấu theo dõi câu hỏi trắc nghiệm mình sẽ làm tiếp theo cho lần làm bài sau."
+    ],
+    "dap_an_dung": "Để người học xem xét lại sau khi thực hiện các câu hỏi trắc nghiệm khác.",
+    "giai_thich": "",
+    "tham_khao": "Hướng dẫn sử dụng công cụ E-learning"
+  },
+  {
+    "stt": 33,
+    "cau_hoi": "Trong bảng thông tin bài nộp, thông tin nào cho biết trạng thái người học nộp bài tập hay chưa?",
+    "danh_sach_dap_an": [
+      "A. Hạn chót",
+      "B. Cập nhật lần cuối",
+      "C. Thời gian nộp bài",
+      "D. Tình trạng nộp bài"
+    ],
+    "dap_an_dung": "Tình trạng nộp bài",
+    "giai_thich": "",
+    "tham_khao": "Hướng dẫn sử dụng công cụ E-learning"
+  },
+  {
+    "stt": 34,
+    "cau_hoi": "Bài tập giữa kỳ có mấy dạng?",
+    "danh_sach_dap_an": [
+      "A. 2",
+      "B. 4",
+      "C. 3",
+      "D. 1"
+    ],
+    "dap_an_dung": "2",
+    "giai_thich": "Có 2 dạng bài tập giữa kỳ: trắc nghiệm và nộp file",
+    "tham_khao": "Hướng dẫn sử dụng công cụ E-learning"
+  },
+  {
+    "stt": 35,
+    "cau_hoi": "Phát biểu nào sau đây là đúng đối với việc nộp bài tập nộp file trong hệ thống Elearning?",
+    "danh_sach_dap_an": [
+      "A. Người học đã nộp bài rồi thì có thể sửa bài nhưng không được nộp lại bài tập khác nếu còn thời gian nộp bài.",
+      "B. Người học đã nộp bài rồi thì có thể sửa bài hoặc nộp lại bài tập khác nếu còn thời gian nộp bài.",
+      "C. Người học đã nộp bài rồi thì không thể sửa bài và nộp lại bài tập khác nếu còn thời gian nộp bài.",
+      "D. Người học đã nộp bài rồi thì có thể sửa bài hoặc nộp lại bài tập khác khi hết thời gian nộp bài."
+    ],
+    "dap_an_dung": "Người học đã nộp bài rồi thì có thể sửa bài hoặc nộp lại bài tập khác nếu còn thời gian nộp bài.",
+    "giai_thich": "",
+    "tham_khao": "Hướng dẫn sử dụng công cụ E-learning"
+  },
+  {
+    "stt": 36,
+    "cau_hoi": "Tính đến cuối năm 2025, hệ thống Moodle đã đạt được cột mốc ấn tượng nào về số lượng người dùng?",
+    "danh_sach_dap_an": [
+      "A. 500 triệu người dùng",
+      "B. 1 tỷ người dùng",
+      "C. 100 triệu người dùng",
+      "D. 300 triệu người dùng"
+    ],
+    "dap_an_dung": "500 triệu người dùng.",
+    "giai_thich": "Theo dữ liệu cập nhật, Moodle đã chính thức cán mốc 500 triệu người dùng trên toàn thế giới vào cuối năm 2025.",
+    "tham_khao": "Giới thiệu hệ thống quản lý học tập Moodle"
+  },
+  {
+    "stt": 37,
+    "cau_hoi": "Moodle là từ viết tắt của cụm từ nào?",
+    "danh_sach_dap_an": [
+      "A. Modular Object Oriented Dynamic Learning Environment",
+      "B. Module Object Oriented Dynamic Learning Environment",
+      "C. Modular Object Oriented Digital Learning Environment",
+      "D. Modular Object Operated Dynamic Learning Environment"
+    ],
+    "dap_an_dung": "Modular Object Oriented Dynamic Learning Environment",
+    "giai_thich": "",
+    "tham_khao": "Giới thiệu hệ thống quản lý học tập Moodle"
+  },
+  {
+    "stt": 38,
+    "cau_hoi": "Trong phần thay đổi mật khẩu đăng nhập hệ thống Elearning, người học phải nhập",
+    "danh_sach_dap_an": [
+      "A. 2 lần nhập mật khẩu mới giống nhau",
+      "B. 2 lần nhập mật khẩu mới không bắt buộc giống nhau",
+      "C. Mật khẩu hiện tại và 2 lần mật khẩu mới phải giống nhau",
+      "D. Mật khẩu hiện tại và 2 lần mật khẩu mới không bắt buộc giống nhau"
+    ],
+    "dap_an_dung": "Mật khẩu hiện tại và 2 lần mật khẩu mới phải giống nhau",
+    "giai_thich": "",
+    "tham_khao": "Hướng dẫn sử dụng công cụ E-learning"
+  },
+  {
+    "stt": 39,
+    "cau_hoi": "Trong trường hợp người học thực hiện bài tập trắc nghiệm, khi người học bấm vào nút “Làm bài tập”, hệ thống sẽ",
+    "danh_sach_dap_an": [
+      "A. hiển thị thông tin thời gian làm bài của người học.",
+      "B. hiển thị số lượng câu hỏi người học cần làm bài.",
+      "C. hiển thị nội dung câu hỏi người học làm bài tập trắc nghiệm.",
+      "D. hiển thị bảng số lượng câu hỏi và nội dung câu hỏi cần làm."
+    ],
+    "dap_an_dung": "hiển thị bảng số lượng câu hỏi và nội dung câu hỏi cần làm.",
+    "giai_thich": "",
+    "tham_khao": "Hướng dẫn sử dụng công cụ E-learning"
+  },
+  {
+    "stt": 40,
+    "cau_hoi": "Moodle là gì?",
+    "danh_sach_dap_an": [
+      "A. Một hệ thống quản lý học tập tính phí và có thể chỉnh sửa được",
+      "B. Một hệ thống quản lý học tập miễn phí và có thể chỉnh sửa được",
+      "C. Một hệ thống quản lý học tập miễn phí và không thể chỉnh sửa được",
+      "D. Một hệ thống quản lý học tập tính phí và không thể chỉnh sửa được"
+    ],
+    "dap_an_dung": "Một hệ thống quản lý học tập miễn phí và có thể chỉnh sửa được",
+    "giai_thich": "",
+    "tham_khao": "Giới thiệu hệ thống quản lý học tập Moodle"
+  }
+]

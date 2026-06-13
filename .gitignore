@@ -1,0 +1,7 @@
+/.agent
+/.agents
+/.vscode
+/docs
+skills-lock.json
+.DS_Store
+.claude/launch.json
