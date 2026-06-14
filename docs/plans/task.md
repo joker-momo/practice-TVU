@@ -21,4 +21,4 @@
 | Task 19: Layout & Mobile Header Integration | [x] | Integrate mobile top bar with Hamburger menu and overlay toggles in js/app.js |
 | Task 20: Sidebar Close on Subject Selection | [x] | Automatically close the mobile sidebar drawer when selecting a subject |
 | Task 21: Progress Bar Integration in Main Header | [x] | Calculate and render subject progress bar under header title in js/app.js |
-| Task 22: Keyboard Shortcuts for Quiz & Flashcard | [/] | Add keydown events to js/components/quiz.js and js/components/flashcard.js |
+| Task 22: Keyboard Shortcuts for Quiz & Flashcard | [x] | Add keydown events to js/components/quiz.js and js/components/flashcard.js |
