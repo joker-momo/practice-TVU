@@ -153,7 +153,6 @@ function initQuiz(container, store) {
 
           <!-- Panel giải thích hiển thị sau khi chọn -->
           <div class="explanation-panel" id="explanation-box" style="display: ${hasSelected ? 'flex' : 'none'};">
-            <span class="explanation-title">Giải thích đáp án</span>
             <div class="explanation-correct-ans">Đáp án đúng: ${alphabet[q.correctIndex]}. ${q.options[q.correctIndex] || ''}</div>
             <div class="explanation-content" style="white-space: pre-line;">${q.explanation || 'Không có giải thích chi tiết cho câu hỏi này.'}</div>
           </div>
