@@ -6,8 +6,9 @@
  * @param {object} store - State store toàn cục
  */
 function initFlashcard(container, store) {
-  let currentQuestion = null;
+  let currentIndex = 0;   // vị trí thẻ hiện tại trong danh sách câu hỏi
   let isFlipped = false;
+  let lastSubjectId = null;
 
   const escapeHtml = (text) => {
     return text
@@ -16,31 +17,6 @@ function initFlashcard(container, store) {
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
-  };
-
-  // Thuật toán chọn câu hỏi thông minh
-  const selectSmartQuestion = (questions) => {
-    if (!questions || questions.length === 0) return null;
-    
-    const sorted = [...questions].sort((a, b) => {
-      const aBook = a.isBookmarked ? 1 : 0;
-      const bBook = b.isBookmarked ? 1 : 0;
-      if (aBook !== bBook) return bBook - aBook;
-
-      const aAttempts = a.history?.attempts || 0;
-      const bAttempts = b.history?.attempts || 0;
-
-      if (aAttempts === 0 && bAttempts > 0) return -1;
-      if (aAttempts > 0 && bAttempts === 0) return 1;
-
-      const aRate = aAttempts > 0 ? (a.history.correct / aAttempts) : 0;
-      const bRate = bAttempts > 0 ? (b.history.correct / bAttempts) : 0;
-      if (aRate !== bRate) return aRate - bRate;
-
-      return aAttempts - bAttempts;
-    });
-
-    return sorted[0];
   };
 
   const render = (state) => {
@@ -77,48 +53,53 @@ function initFlashcard(container, store) {
       return;
     }
 
-    // Chọn câu hỏi mới nếu chưa chọn
-    if (!currentQuestion || !questions.some(q => q.id === currentQuestion.id)) {
-      currentQuestion = selectSmartQuestion(questions);
+    // Reset về thẻ đầu khi đổi môn học
+    if (lastSubjectId !== currentSubjectId) {
+      lastSubjectId = currentSubjectId;
+      currentIndex = 0;
       isFlipped = false;
-    } else {
-      currentQuestion = questions.find(q => q.id === currentQuestion.id);
     }
+    // Giữ index trong khoảng hợp lệ (phòng khi danh sách thay đổi qua realtime)
+    if (currentIndex < 0) currentIndex = 0;
+    if (currentIndex > questions.length - 1) currentIndex = questions.length - 1;
 
-    const q = currentQuestion;
+    const q = questions[currentIndex];
+    const total = questions.length;
     const alphabet = ["A", "B", "C", "D"];
     const attempts = q.history?.attempts || 0;
     const correct = q.history?.correct || 0;
 
     let html = `
       <div class="question-card-container" style="max-width: 700px;">
-        <div class="flashcard-frame">
+        <div class="flashcard-frame" style="cursor: pointer;" title="Nhấn vào thẻ để lật">
           <div class="flashcard-inner ${isFlipped ? 'flipped' : ''}" id="card-flipper">
-            
+
             <!-- MẶT TRƯỚC (CÂU HỎI) -->
             <div class="flashcard-face flashcard-front">
-              <div style="width: 100%; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem; text-align: left; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">
-                Thẻ nhớ • Lịch sử: ${correct}/${attempts} đúng
+              <div style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">
+                <span>Thẻ ${currentIndex + 1}/${total}</span>
+                <span>Lịch sử: ${correct}/${attempts} đúng</span>
               </div>
               <div class="question-text" style="width: 100%; text-align: left;">${q.questionText}</div>
-              
+
               ${q.codeSnippet ? `
                 <div class="code-container" style="width: 100%; text-align: left;">
                   <pre><code class="language-javascript">${escapeHtml(q.codeSnippet)}</code></pre>
                 </div>
               ` : ''}
-              
-              <button class="btn btn-primary reveal-card-btn" style="margin-top: 1.5rem; width: 100%;">
-                Xem đáp án
-              </button>
+
+              <div class="flashcard-hint" style="margin-top: auto; padding-top: 1.25rem; color: var(--text-muted); font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 0.4rem;">
+                <span style="font-size: 1.1rem;">👆</span> Nhấn vào thẻ để xem đáp án
+              </div>
             </div>
-            
+
             <!-- MẶT SAU (ĐÁP ÁN & GIẢI THÍCH) -->
             <div class="flashcard-face flashcard-back">
-              <div style="width: 100%; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem; text-align: left; font-size: 0.8rem; font-weight: 700; color: var(--success); text-transform: uppercase; letter-spacing: 0.08em;">
-                Kết quả giải thích
+              <div style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem; font-size: 0.8rem; font-weight: 700; color: var(--success); text-transform: uppercase; letter-spacing: 0.08em;">
+                <span>Đáp án &amp; Giải thích</span>
+                <span style="color: var(--text-muted); text-transform: none; font-weight: 600;">👆 Nhấn để xem câu hỏi</span>
               </div>
-              
+
               <div style="width: 100%; text-align: left; margin: 1rem 0;">
                 <div style="font-size: 1.25rem; font-weight: 700; color: var(--success); margin-bottom: 1rem;">
                   Đáp án đúng: ${alphabet[q.correctIndex]}. ${q.options[q.correctIndex] || ''}
@@ -131,7 +112,7 @@ function initFlashcard(container, store) {
                 </div>
               </div>
 
-              <div style="width: 100%; text-align: center; margin-top: auto;">
+              <div class="flashcard-rate-zone" style="width: 100%; text-align: center; margin-top: auto;">
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem; font-weight: 600;">
                   Đánh giá mức độ nhớ của bạn để thuật toán tối ưu lượt hỏi sau:
                 </p>
@@ -145,6 +126,13 @@ function initFlashcard(container, store) {
 
           </div>
         </div>
+
+        <!-- Điều hướng qua lại giữa các thẻ -->
+        <div class="flashcard-nav" style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.25rem;">
+          <button class="btn nav-prev-btn" ${currentIndex === 0 ? 'disabled' : ''} style="min-width: 110px; justify-content: center;">◀ Trước</button>
+          <span style="font-weight: 700; color: var(--text-muted); min-width: 64px; text-align: center;">${currentIndex + 1} / ${total}</span>
+          <button class="btn nav-next-btn" ${currentIndex >= total - 1 ? 'disabled' : ''} style="min-width: 110px; justify-content: center;">Sau ▶</button>
+        </div>
       </div>
     `;
 
@@ -155,11 +143,27 @@ function initFlashcard(container, store) {
       Prism.highlightAll();
     }
 
-    // Sự kiện Click lật thẻ
-    container.querySelector('.reveal-card-btn').addEventListener('click', () => {
-      isFlipped = true;
-      container.querySelector('#card-flipper').classList.add('flipped');
+    // Click vào thẻ để lật qua lại (câu hỏi ⇄ đáp án)
+    const flipper = container.querySelector('#card-flipper');
+    container.querySelector('.flashcard-frame').addEventListener('click', () => {
+      isFlipped = !isFlipped;
+      flipper.classList.toggle('flipped', isFlipped);
     });
+
+    // Vùng nút đánh giá: không lật thẻ khi bấm
+    const rateZone = container.querySelector('.flashcard-rate-zone');
+    if (rateZone) rateZone.addEventListener('click', (e) => e.stopPropagation());
+
+    // Điều hướng Trước / Sau
+    const goTo = (idx) => {
+      currentIndex = idx;
+      isFlipped = false;
+      render(store.state);
+    };
+    const prevBtn = container.querySelector('.nav-prev-btn');
+    const nextBtn = container.querySelector('.nav-next-btn');
+    if (prevBtn) prevBtn.addEventListener('click', () => { if (currentIndex > 0) goTo(currentIndex - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { if (currentIndex < total - 1) goTo(currentIndex + 1); });
 
     // Sự kiện Click tự đánh giá mức độ nhớ
     container.querySelectorAll('.rate-btn').forEach(btn => {
@@ -170,8 +174,10 @@ function initFlashcard(container, store) {
         // Lưu tiến trình lịch sử học tập
         store.updateHistory(currentSubjectId, q.id, isCorrect);
 
-        // Chuyển câu hỏi mới
-        currentQuestion = selectSmartQuestion(questions);
+        // Sang thẻ kế tiếp nếu còn, không thì giữ thẻ cuối
+        if (currentIndex < total - 1) {
+          currentIndex += 1;
+        }
         isFlipped = false;
         render(store.state);
       });

@@ -266,26 +266,33 @@ function initEditor(container, store) {
         <table class="question-list-table">
           <thead>
             <tr>
-              <th style="width: 60%">Nội dung câu hỏi</th>
-              <th style="width: 20%">Tiến độ ghi nhớ</th>
-              <th style="width: 20%; text-align: right;">Thao tác</th>
+              <th style="width: 48px; text-align: center;">STT</th>
+              <th>Nội dung câu hỏi</th>
+              <th style="width: 24%;">Đáp án đúng</th>
+              <th style="width: 130px;">Tiến độ ghi nhớ</th>
+              <th style="width: 120px; text-align: right;">Thao tác</th>
             </tr>
           </thead>
           <tbody>
       `;
 
-      questions.forEach(q => {
+      questions.forEach((q, idx) => {
         const attempts = q.history?.attempts || 0;
         const correct = q.history?.correct || 0;
         const progressPercent = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
         const starIcon = q.isBookmarked ? "★" : "☆";
+        const ci = typeof q.correctIndex === "number" ? q.correctIndex : 0;
+        const correctLetter = ci >= 0 && ci < 4 ? String.fromCharCode(65 + ci) : "?";
+        const correctText = (q.options && q.options[ci]) ? q.options[ci] : "(chưa có)";
 
         html += `
           <tr data-id="${q.id}">
+            <td class="stt-cell">${idx + 1}</td>
             <td>
-              <div class="question-row-text" title="${q.questionText}">${q.questionText}</div>
+              <div class="question-row-text">${q.questionText}</div>
               ${q.codeSnippet ? `<span style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--bg-base); padding: 0.1rem 0.3rem; border-radius: 4px; color: var(--accent);">[Có code snippet]</span>` : ''}
             </td>
+            <td class="answer-correct-cell"><strong>${correctLetter}.</strong> ${correctText}</td>
             <td style="font-size: 0.9rem;">
               <span style="font-weight: 600; color: ${progressPercent > 50 ? 'var(--success)' : 'var(--text-muted)'}">
                 ${progressPercent}% (${correct}/${attempts})
@@ -874,7 +881,7 @@ function initEditor(container, store) {
       scannedQuestions.forEach((q, idx) => {
         const dup = q.duplicateStatus;
         const isExact = dup.similarity >= 1; // trùng 100% (giống hệt sau chuẩn hóa)
-        const badgeClass = dup.isDuplicate ? 'badge-duplicate' : 'badge-clean';
+        const badgeClass = !dup.isDuplicate ? 'badge-clean' : (isExact ? 'badge-duplicate' : 'badge-near');
         const badgeText = dup.isDuplicate ? `Trùng ${Math.round(dup.similarity * 100)}%` : 'Hợp lệ';
         let statusText = '';
         if (dup.isDuplicate) {

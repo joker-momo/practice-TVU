@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let activeView = null;
   let activeSubjectId = null;
+  let activeHadSubject = false;
   let activeViewInstance = null;
 
   // 2. Hàm lắng nghe thay đổi State để render khu vực Main Panel chính
@@ -26,9 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const { currentView, currentSubjectId, subjects } = state;
     const subject = subjects.find(s => s.id === currentSubjectId);
 
-    // Tránh render lại cấu trúc sườn panel nếu view và môn học không thay đổi
-    if (activeView === currentView && activeSubjectId === currentSubjectId) {
-      return; 
+    // Tránh render lại cấu trúc sườn panel nếu view, môn học VÀ tình trạng tồn tại của môn không đổi.
+    // (activeHadSubject cần thiết: lần đầu cloud chưa về -> không có môn; khi về cùng id phải render lại,
+    //  nếu không sẽ kẹt màn welcome khi chỉ có 1 môn.)
+    if (activeView === currentView && activeSubjectId === currentSubjectId && activeHadSubject === !!subject) {
+      return;
     }
 
     // Dọn dẹp view cũ trước khi khởi tạo view mới
@@ -39,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     activeView = currentView;
     activeSubjectId = currentSubjectId;
+    activeHadSubject = !!subject;
 
     if (!subject) {
       mainPanelContainer.innerHTML = `

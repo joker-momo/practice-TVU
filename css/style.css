@@ -445,15 +445,15 @@ body {
 
 /* --- FLASHCARD VIEWS --- */
 .flashcard-frame {
-  perspective: 1000px;
-  min-height: 380px;
+  perspective: 1600px;
   width: 100%;
 }
 
+/* Grid-stack: 2 mặt nằm chồng cùng 1 ô -> chiều cao thẻ tự co theo mặt CAO NHẤT,
+   không còn bị cắt nội dung như khi dùng position:absolute height cố định. */
 .flashcard-inner {
-  position: relative;
+  display: grid;
   width: 100%;
-  height: 100%;
   text-align: center;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
@@ -464,37 +464,31 @@ body {
 }
 
 .flashcard-face {
-  position: absolute;
+  grid-area: 1 / 1;
   width: 100%;
-  height: 100%;
+  min-height: 320px;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-light);
   background: #ffffff;
-  padding: 2.5rem;
-  box-shadow: 0 12px 36px -12px rgba(10, 10, 10, 0.04);
+  padding: 2rem 2.25rem;
+  box-shadow: 0 12px 36px -12px rgba(10, 10, 10, 0.05);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.1rem;
+  transition: box-shadow 0.25s ease;
+}
+
+/* Nâng nhẹ khi rê chuột để gợi ý có thể bấm lật */
+.flashcard-frame:hover .flashcard-face {
+  box-shadow: 0 20px 48px -16px rgba(10, 10, 10, 0.12);
 }
 
 .flashcard-back {
   transform: rotateY(180deg);
-}
-
-.flashcard-inner:not(.flipped) .flashcard-back {
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
-}
-
-.flashcard-inner.flipped .flashcard-front {
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
 }
 
 .flashcard-actions {
@@ -558,10 +552,28 @@ body {
 .question-row-text {
   font-size: 0.95rem;
   font-weight: 500;
-  max-width: 400px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;      /* hiện đầy đủ, xuống dòng */
+  overflow: visible;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.question-list-table td {
+  vertical-align: top;
+}
+
+.answer-correct-cell {
+  font-size: 0.9rem;
+  color: var(--success);
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.stt-cell {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
 }
 
 .action-links {
@@ -979,6 +991,13 @@ textarea.form-control {
   background: rgba(0, 150, 136, 0.1);
   color: var(--success);
   border: 1px solid rgba(0, 150, 136, 0.2);
+}
+
+/* Trùng < 100% (gần giống nhưng khác câu cũ) — màu tím để phân biệt với trùng 100% (cam) */
+.scanned-q-badge.badge-near {
+  background: rgba(124, 58, 237, 0.12);
+  color: #7c3aed;
+  border: 1px solid rgba(124, 58, 237, 0.25);
 }
 
 .scanned-q-warning-banner {
