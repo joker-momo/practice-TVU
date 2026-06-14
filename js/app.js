@@ -7,12 +7,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 1. Tạo cấu trúc bố cục chính (Layout Shell)
   appContainer.innerHTML = `
+    <div class="mobile-header-bar">
+      <button class="link-btn" id="sidebar-toggle-btn" style="padding: 0.5rem; display: flex; align-items: center; justify-content: center; color: var(--text-main);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <div class="mobile-brand">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span>TVU Memorizer</span>
+      </div>
+      <div style="width: 36px;"></div> <!-- Spacer to center brand -->
+    </div>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
     <aside class="sidebar" id="sidebar-container"></aside>
     <main class="main-panel" id="main-panel-container"></main>
   `;
 
   const sidebarContainer = document.getElementById("sidebar-container");
   const mainPanelContainer = document.getElementById("main-panel-container");
+  const toggleBtn = document.getElementById("sidebar-toggle-btn");
+  const overlay = document.getElementById("sidebar-overlay");
+  const sidebar = document.getElementById("sidebar-container");
+
+  const closeSidebar = () => {
+    sidebar.classList.remove("open");
+    overlay.classList.remove("active");
+  };
+
+  toggleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+    overlay.classList.toggle("active");
+  });
+
+  overlay.addEventListener("click", closeSidebar);
 
   // Khởi tạo Sidebar trước (tự động đăng ký subscribe và render)
   initSidebar(sidebarContainer, store);
