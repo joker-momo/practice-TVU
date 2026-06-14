@@ -184,12 +184,50 @@ function initFlashcard(container, store) {
     });
   };
 
+  const handleKeyDown = (e) => {
+    if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA' || document.activeElement.isContentEditable)) {
+      return;
+    }
+
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      const frame = container.querySelector('.flashcard-frame');
+      if (frame) frame.click();
+      return;
+    }
+
+    if (e.key === 'ArrowLeft') {
+      const prevBtn = container.querySelector('.nav-prev-btn');
+      if (prevBtn && !prevBtn.disabled) prevBtn.click();
+      return;
+    } else if (e.key === 'ArrowRight') {
+      const nextBtn = container.querySelector('.nav-next-btn');
+      if (nextBtn && !nextBtn.disabled) nextBtn.click();
+      return;
+    }
+
+    if (isFlipped) {
+      let rate = null;
+      if (e.key === '1') rate = 'forget';
+      else if (e.key === '2') rate = 'medium';
+      else if (e.key === '3') rate = 'remember';
+      
+      if (rate) {
+        const btn = container.querySelector(`.rate-btn[data-rate="${rate}"]`);
+        if (btn) btn.click();
+      }
+    }
+  };
+
+  window.addEventListener('keydown', handleKeyDown);
+
   // Đăng ký store
   const unsubscribe = store.subscribe(render);
   render(store.state);
 
   return {
     destroy() {
+      window.removeEventListener('keydown', handleKeyDown);
       unsubscribe();
     }
   };

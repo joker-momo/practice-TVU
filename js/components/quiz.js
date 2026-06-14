@@ -224,12 +224,46 @@ function initQuiz(container, store) {
     });
   };
 
+  const handleKeyDown = (e) => {
+    if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA' || document.activeElement.isContentEditable)) {
+      return;
+    }
+    const key = e.key.toLowerCase();
+    const activeState = store.state;
+    const subject = activeState.subjects.find(s => s.id === activeState.currentSubjectId);
+    if (!subject) return;
+    const questions = subject.questions || [];
+    if (questions.length === 0) return;
+
+    if (!hasSelected) {
+      let index = -1;
+      if (key === '1' || key === 'a') index = 0;
+      else if (key === '2' || key === 'b') index = 1;
+      else if (key === '3' || key === 'c') index = 2;
+      else if (key === '4' || key === 'd') index = 3;
+
+      if (index >= 0 && currentQuestion && index < currentQuestion.options.length && currentQuestion.options[index]) {
+        const cards = container.querySelectorAll('.option-card');
+        if (cards[index]) cards[index].click();
+      }
+    } else {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const nextBtn = container.querySelector('.next-question-btn');
+        if (nextBtn && nextBtn.style.display !== 'none') nextBtn.click();
+      }
+    }
+  };
+
+  window.addEventListener('keydown', handleKeyDown);
+
   // Đăng ký store
   const unsubscribe = store.subscribe(render);
   render(store.state);
 
   return {
     destroy() {
+      window.removeEventListener('keydown', handleKeyDown);
       unsubscribe();
     }
   };
