@@ -104,6 +104,11 @@ function initSidebar(container, store) {
         <button class="btn admin-toggle-btn" style="justify-content: center; ${isAdmin ? 'background: var(--success, #1a7f37); color: #fff; border-color: transparent;' : 'background: var(--bg-paper); border: 1px solid var(--border-light); color: var(--text-muted);'}">
           ${isAdmin ? `🔓 Admin · còn ${adminMins}p (Thoát)` : '🔒 Chế độ Admin'}
         </button>
+
+        <div style="text-align: center; font-size: 0.75rem; color: var(--text-muted); padding-top: 0.5rem; border-top: 1px solid var(--border-light); margin-top: 0.5rem;">
+          Tác giả: <strong>Joker</strong><br/>
+          &copy; ${new Date().getFullYear()} TVU Memorizer
+        </div>
       </div>
     `;
 
