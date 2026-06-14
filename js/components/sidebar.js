@@ -116,6 +116,12 @@ function initSidebar(container, store) {
         if (e.target.closest('.delete-subject-btn')) return;
         const id = item.getAttribute('data-id');
         store.selectSubject(id);
+
+        // Close drawer on mobile
+        const overlay = document.getElementById("sidebar-overlay");
+        const sidebar = document.getElementById("sidebar-container");
+        if (sidebar) sidebar.classList.remove("open");
+        if (overlay) overlay.classList.remove("active");
       });
     });
 
