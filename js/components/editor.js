@@ -1113,6 +1113,12 @@ function initEditor(container, store) {
 
 
   // Đăng ký nhận thông báo thay đổi state
-  store.subscribe(render);
+  const unsubscribe = store.subscribe(render);
   render(store.state);
+
+  return {
+    destroy() {
+      unsubscribe();
+    }
+  };
 }

@@ -225,6 +225,12 @@ function initQuiz(container, store) {
   };
 
   // Đăng ký store
-  store.subscribe(render);
+  const unsubscribe = store.subscribe(render);
   render(store.state);
+
+  return {
+    destroy() {
+      unsubscribe();
+    }
+  };
 }
