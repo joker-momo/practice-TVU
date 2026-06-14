@@ -24,7 +24,7 @@ function initSidebar(container, store) {
 
     let html = `
       <div class="sidebar-brand" style="display: flex; align-items: center; gap: 0.65rem; padding: 1rem 0.75rem;">
-        <img src="assets/logo.png" alt="Logo" style="width: 32px; height: 32px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+        <img src="assets/logo.png" alt="Logo" style="width: 32px; height: 32px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); background: #ffffff; padding: 2px; border: 1px solid rgba(0,0,0,0.06);" />
         <span style="font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em;">TVU <span style="color: var(--accent);">Memorizer</span></span>
       </div>
       

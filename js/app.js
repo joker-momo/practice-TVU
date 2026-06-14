@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </svg>
       </button>
       <div class="mobile-brand" style="display: flex; align-items: center; gap: 0.5rem;">
-        <img src="assets/logo.png" alt="Logo" style="width: 24px; height: 24px; border-radius: 4px;" />
+        <img src="assets/logo.png" alt="Logo" style="width: 24px; height: 24px; border-radius: 4px; background: #ffffff; padding: 2px; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 1px 4px rgba(0,0,0,0.06);" />
         <span>TVU Memorizer</span>
       </div>
       <div style="width: 36px;"></div> <!-- Spacer to center brand -->
