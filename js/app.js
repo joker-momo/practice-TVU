@@ -15,10 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </button>
-      <div class="mobile-brand">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-        </svg>
+      <div class="mobile-brand" style="display: flex; align-items: center; gap: 0.5rem;">
+        <img src="assets/logo.png" alt="Logo" style="width: 24px; height: 24px; border-radius: 4px;" />
         <span>TVU Memorizer</span>
       </div>
       <div style="width: 36px;"></div> <!-- Spacer to center brand -->

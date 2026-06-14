@@ -23,11 +23,9 @@ function initSidebar(container, store) {
     };
 
     let html = `
-      <div class="sidebar-brand">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-        </svg>
-        <span>TVU</span> Memorizer
+      <div class="sidebar-brand" style="display: flex; align-items: center; gap: 0.65rem; padding: 1rem 0.75rem;">
+        <img src="assets/logo.png" alt="Logo" style="width: 32px; height: 32px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+        <span style="font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em;">TVU <span style="color: var(--accent);">Memorizer</span></span>
       </div>
       
       <div>
