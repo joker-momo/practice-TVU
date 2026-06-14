@@ -88,14 +88,27 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // Tính toán tiến độ ghi nhớ
+    const qList = subject.questions || [];
+    const memorizedCount = qList.filter(q => q.history && q.history.correct > 0).length;
+    const total = qList.length;
+    const percent = total > 0 ? Math.round((memorizedCount / total) * 100) : 0;
+    const progressText = `${memorizedCount}/${total}`;
+
     // Thiết kế Header và thanh chọn chế độ ôn tập
     mainPanelContainer.innerHTML = `
       <div class="panel-header">
-        <div class="header-meta">
+        <div class="header-meta" style="width: 100%;">
           <h1 class="header-title">${subject.name}</h1>
           <span class="header-subtitle">
             Học phần ôn tập • <em>Lặp lại ngắt quãng</em> chống quên
           </span>
+          <div class="subject-progress-container">
+            <div class="subject-progress-bar">
+              <div class="subject-progress-bar-fill" style="width: ${percent}%"></div>
+            </div>
+            <span class="subject-progress-text">Tiến độ: ${percent}% (${progressText})</span>
+          </div>
         </div>
         
         <nav class="tab-navigation">
