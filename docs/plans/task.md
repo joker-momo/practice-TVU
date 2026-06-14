@@ -17,8 +17,8 @@
 | Task 15: Custom JSON Import & UI Backup (js/components/editor.js) | [x] | Add Import/Export JSON buttons, write custom JSON parser and integrate with Preview UI |
 | Task 16: Verify Static Web & Custom JSON Import | [x] | Run static HTTP server, import custom JSON questions and verify UI/state correctness |
 | Task 17: Refactor Custom JSON Import & Smart matching | [x] | Implement smart normalization and multi-stage correctIndex matching |
-| Task 18: CSS Layout & Spacing Adjustments | [ ] | Optimize responsive mobile drawer, margins/gaps, progress bar and options styling |
-| Task 19: Layout & Mobile Header Integration | [ ] | Integrate mobile top bar with Hamburger menu and overlay toggles in js/app.js |
-| Task 20: Sidebar Close on Subject Selection | [ ] | Automatically close the mobile sidebar drawer when selecting a subject |
-| Task 21: Progress Bar Integration in Main Header | [ ] | Calculate and render subject progress bar under header title in js/app.js |
-| Task 22: Keyboard Shortcuts for Quiz & Flashcard | [ ] | Add keydown events to js/components/quiz.js and js/components/flashcard.js |
+| Task 18: CSS Layout & Spacing Adjustments | [x] | Optimize responsive mobile drawer, margins/gaps, progress bar and options styling |
+| Task 19: Layout & Mobile Header Integration | [x] | Integrate mobile top bar with Hamburger menu and overlay toggles in js/app.js |
+| Task 20: Sidebar Close on Subject Selection | [x] | Automatically close the mobile sidebar drawer when selecting a subject |
+| Task 21: Progress Bar Integration in Main Header | [x] | Calculate and render subject progress bar under header title in js/app.js |
+| Task 22: Keyboard Shortcuts for Quiz & Flashcard | [/] | Add keydown events to js/components/quiz.js and js/components/flashcard.js |
