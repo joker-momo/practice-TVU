@@ -1,5 +1,7 @@
 /.agent
 /.agents
+/.codegraph
+/.cursor
 /.vscode
 /docs
 skills-lock.json
