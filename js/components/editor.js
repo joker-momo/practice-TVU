@@ -912,6 +912,7 @@ function initEditor(container, store) {
         const isExact = dup.similarity >= 1; // trùng 100% (giống hệt sau chuẩn hóa)
         const badgeClass = !dup.isDuplicate ? 'badge-clean' : (isExact ? 'badge-duplicate' : 'badge-near');
         const badgeText = dup.isDuplicate ? `Trùng ${Math.round(dup.similarity * 100)}%` : 'Hợp lệ';
+        const isFill = isFillQuestion(q);
         let statusText = '';
         if (dup.isDuplicate) {
           statusText = dup.overwrite ? ' (Sẽ ghi đè)' : (q.selected ? ' (Sẽ thêm mới)' : ' (Bỏ qua)');
@@ -921,7 +922,7 @@ function initEditor(container, store) {
           <div class="scanned-q-card ${q.expanded ? 'expanded' : ''}" data-id="${q.id}">
             <div class="scanned-q-header">
               <input type="checkbox" class="scanned-q-checkbox card-select-check" ${q.selected ? 'checked' : ''} />
-              <span class="scanned-q-title">Câu ${idx + 1}: ${q.questionText || "[Không có nội dung câu hỏi]"}</span>
+              <span class="scanned-q-title">${isFill ? '<span class="fill-badge">Điền từ</span>' : ''}Câu ${idx + 1}: ${q.questionText || "[Không có nội dung câu hỏi]"}</span>
               <span class="scanned-q-badge ${badgeClass}">${badgeText}${statusText}</span>
               <span class="scanned-q-toggle-icon">▼</span>
             </div>
@@ -947,6 +948,12 @@ function initEditor(container, store) {
                 <label class="form-label">Code Snippet (Không bắt buộc)</label>
                 <textarea class="form-control field-q-code" style="font-family: var(--font-mono); font-size: 0.8rem;" rows="3">${q.codeSnippet}</textarea>
               </div>
+              ${isFill ? `
+              <div class="form-group">
+                <label class="form-label">Xem trước (đáp án trong {{...}})</label>
+                <div class="form-control" style="white-space: pre-line; min-height: auto;">${renderFillText(q.questionText, "answer")}</div>
+              </div>
+              ` : `
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
                 <div class="form-group">
                   <label class="form-label">Đáp án A</label>
@@ -974,6 +981,7 @@ function initEditor(container, store) {
                   <option value="3" ${q.correctIndex === 3 ? 'selected' : ''}>D</option>
                 </select>
               </div>
+              `}
               <div class="form-group">
                 <label class="form-label">Giải thích bổ sung</label>
                 <textarea class="form-control field-q-explanation" rows="2">${q.explanation}</textarea>
@@ -1022,20 +1030,26 @@ function initEditor(container, store) {
           question.codeSnippet = e.target.value;
         });
 
-        card.querySelector('.field-opt-a').addEventListener('input', (e) => {
+        // Câu điền từ không render các ô đáp án A-D → phần tử có thể không tồn tại
+        const optA = card.querySelector('.field-opt-a');
+        if (optA) optA.addEventListener('input', (e) => {
           question.options[0] = e.target.value;
         });
-        card.querySelector('.field-opt-b').addEventListener('input', (e) => {
+        const optB = card.querySelector('.field-opt-b');
+        if (optB) optB.addEventListener('input', (e) => {
           question.options[1] = e.target.value;
         });
-        card.querySelector('.field-opt-c').addEventListener('input', (e) => {
+        const optC = card.querySelector('.field-opt-c');
+        if (optC) optC.addEventListener('input', (e) => {
           question.options[2] = e.target.value;
         });
-        card.querySelector('.field-opt-d').addEventListener('input', (e) => {
+        const optD = card.querySelector('.field-opt-d');
+        if (optD) optD.addEventListener('input', (e) => {
           question.options[3] = e.target.value;
         });
 
-        card.querySelector('.field-correct-idx').addEventListener('change', (e) => {
+        const correctIdxSel = card.querySelector('.field-correct-idx');
+        if (correctIdxSel) correctIdxSel.addEventListener('change', (e) => {
           question.correctIndex = parseInt(e.target.value);
         });
 
