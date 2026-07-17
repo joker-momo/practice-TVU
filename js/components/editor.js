@@ -496,6 +496,7 @@ function initEditor(container, store) {
             <div class="form-group">
               <label class="form-label">Câu hỏi</label>
               <textarea id="q-text" class="form-control" placeholder="Nhập nội dung câu hỏi...">${isEdit ? question.questionText : ''}</textarea>
+              <p class="form-hint">Dạng điền từ: bọc đáp án bằng {{...}} ngay trong nội dung (ví dụ: "the {{online catalogue}}"), bỏ trống các ô A–D bên dưới.</p>
             </div>
             <div class="form-group">
               <label class="form-label">Code Snippet (Không bắt buộc)</label>
