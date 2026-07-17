@@ -22,6 +22,26 @@ function normalizeTextForComparison(text) {
 function convertCustomJSONToQuestions(jsonArray) {
   return jsonArray.map(item => {
     const rawOptions = item.danh_sach_dap_an || [];
+
+    // Câu điền từ: không có danh sách đáp án + nội dung chứa marker {{...}}
+    const hasOptions = rawOptions.some(o => String(o || "").trim());
+    const cauHoi = item.cau_hoi || "";
+    if (!hasOptions && /\{\{.+?\}\}/.test(cauHoi)) {
+      let fillExplanation = item.giai_thich || "";
+      if (item.tham_khao) {
+        fillExplanation = fillExplanation
+          ? fillExplanation + "\nTham khảo: " + item.tham_khao
+          : "Tham khảo: " + item.tham_khao;
+      }
+      return {
+        questionText: cauHoi,
+        codeSnippet: "",
+        options: [],
+        correctIndex: 0,
+        explanation: fillExplanation
+      };
+    }
+
     const cleanOptions = rawOptions.map(opt => {
       if (typeof opt !== 'string') return String(opt || '').trim();
       // Bóc tách nhãn "A. ", "B. ", "A) ", "B) " ở đầu
