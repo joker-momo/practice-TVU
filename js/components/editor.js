@@ -518,10 +518,6 @@ function initEditor(container, store) {
               <textarea id="q-text" class="form-control" placeholder="Nhập nội dung câu hỏi...">${isEdit ? question.questionText : ''}</textarea>
               <p class="form-hint">Dạng điền từ: bọc đáp án bằng {{...}} ngay trong nội dung (ví dụ: "the {{online catalogue}}"), bỏ trống các ô A–D bên dưới.</p>
             </div>
-            <div class="form-group">
-              <label class="form-label">Code Snippet (Không bắt buộc)</label>
-              <textarea id="q-code" class="form-control" style="font-family: var(--font-mono); font-size: 0.85rem;" placeholder="const x = 10;...">${isEdit ? question.codeSnippet : ''}</textarea>
-            </div>
             <div style="display: grid; grid-template-cols: 1fr 1fr; gap: 1rem;">
               <div class="form-group">
                 <label class="form-label">Đáp án A</label>
@@ -575,7 +571,8 @@ function initEditor(container, store) {
 
     modal.querySelector('.save-btn').addEventListener('click', () => {
       const qText = modal.querySelector('#q-text').value.trim();
-      const qCode = modal.querySelector('#q-code').value.trim();
+      // Ô nhập Code Snippet đã bỏ khỏi form; giữ nguyên giá trị cũ khi sửa để không mất dữ liệu
+      const qCode = isEdit ? (question.codeSnippet || "") : "";
       const optA = modal.querySelector('#opt-a').value.trim();
       const optB = modal.querySelector('#opt-b').value.trim();
       const optC = modal.querySelector('#opt-c').value.trim();
@@ -944,10 +941,6 @@ function initEditor(container, store) {
                 <label class="form-label">Câu hỏi</label>
                 <textarea class="form-control field-q-text" rows="2">${q.questionText}</textarea>
               </div>
-              <div class="form-group">
-                <label class="form-label">Code Snippet (Không bắt buộc)</label>
-                <textarea class="form-control field-q-code" style="font-family: var(--font-mono); font-size: 0.8rem;" rows="3">${q.codeSnippet}</textarea>
-              </div>
               ${isFill ? `
               <div class="form-group">
                 <label class="form-label">Xem trước (đáp án trong {{...}})</label>
@@ -1026,7 +1019,9 @@ function initEditor(container, store) {
           card.querySelector('.scanned-q-title').innerText = `Câu ${qIndex + 1}: ${e.target.value}`;
         });
 
-        card.querySelector('.field-q-code').addEventListener('input', (e) => {
+        // Ô Code Snippet đã bỏ khỏi card preview; codeSnippet giữ nguyên trong dữ liệu
+        const qCodeField = card.querySelector('.field-q-code');
+        if (qCodeField) qCodeField.addEventListener('input', (e) => {
           question.codeSnippet = e.target.value;
         });
 
