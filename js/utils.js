@@ -62,3 +62,37 @@ function checkSimilarity(text1, text2) {
 function generateId() {
   return 'id-' + Math.random().toString(36).substring(2, 11) + '-' + Date.now().toString(36);
 }
+
+/**
+ * Câu hỏi dạng điền từ? Điều kiện kép: questionText chứa marker {{...}}
+ * VÀ options rỗng/toàn chuỗi rỗng (để câu trắc nghiệm lỡ chứa "{{" không bị nhận nhầm).
+ * @param {object} q - Câu hỏi (shape hệ thống)
+ * @returns {boolean}
+ */
+function isFillQuestion(q) {
+  if (!q || typeof q.questionText !== "string") return false;
+  if (!/\{\{.+?\}\}/.test(q.questionText)) return false;
+  const opts = Array.isArray(q.options) ? q.options : [];
+  return opts.every(o => !o || !String(o).trim());
+}
+
+/**
+ * Render questionText của câu điền từ thành HTML an toàn.
+ * Escape HTML TRƯỚC rồi mới thay marker (chống XSS).
+ * @param {string} questionText
+ * @param {"blank"|"answer"} mode - "blank": ô trống ______; "answer": hiện đáp án tô màu
+ * @returns {string} HTML
+ */
+function renderFillText(questionText, mode) {
+  const escaped = String(questionText || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+  return escaped.replace(/\{\{(.+?)\}\}/g, (m, ans) =>
+    mode === "answer"
+      ? '<span class="fill-answer">' + ans + '</span>'
+      : '<span class="fill-blank">______</span>'
+  );
+}
