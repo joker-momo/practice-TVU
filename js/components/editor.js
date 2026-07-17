@@ -281,18 +281,26 @@ function initEditor(container, store) {
         const correct = q.history?.correct || 0;
         const progressPercent = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
         const starIcon = q.isBookmarked ? "★" : "☆";
+        const isFill = isFillQuestion(q);
         const ci = typeof q.correctIndex === "number" ? q.correctIndex : 0;
         const correctLetter = ci >= 0 && ci < 4 ? String.fromCharCode(65 + ci) : "?";
         const correctText = (q.options && q.options[ci]) ? q.options[ci] : "(chưa có)";
+        // Câu điền từ: cột "Đáp án đúng" liệt kê đáp án các ô trống
+        const fillAnswers = isFill
+          ? [...q.questionText.matchAll(/\{\{(.+?)\}\}/g)].map(m => m[1]).join(" · ")
+          : "";
 
         html += `
           <tr data-id="${q.id}">
             <td class="stt-cell">${idx + 1}</td>
             <td>
-              <div class="question-row-text">${q.questionText}</div>
+              ${isFill ? '<span class="fill-badge">Điền từ</span>' : ''}
+              <div class="question-row-text">${isFill ? renderFillText(q.questionText, "answer") : q.questionText}</div>
               ${q.codeSnippet ? `<span style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--bg-base); padding: 0.1rem 0.3rem; border-radius: 4px; color: var(--accent);">[Có code snippet]</span>` : ''}
             </td>
-            <td class="answer-correct-cell"><strong>${correctLetter}.</strong> ${correctText}</td>
+            <td class="answer-correct-cell">${isFill
+              ? renderFillText(fillAnswers ? "{{" + fillAnswers + "}}" : "", "answer") || "(chưa có)"
+              : `<strong>${correctLetter}.</strong> ${correctText}`}</td>
             <td style="font-size: 0.9rem;">
               <span style="font-weight: 600; color: ${progressPercent > 50 ? 'var(--success)' : 'var(--text-muted)'}">
                 ${progressPercent}% (${correct}/${attempts})
