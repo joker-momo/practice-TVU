@@ -734,6 +734,7 @@ function initEditor(container, store) {
         let matchedQ = null;
 
         currentQuestions.forEach(existingQ => {
+          if (!answersMatch(q, existingQ)) return;
           const sim = checkSimilarity(q.questionText, existingQ.questionText);
           if (sim > maxSim) {
             maxSim = sim;
@@ -844,6 +845,7 @@ function initEditor(container, store) {
           let matchedQ = null;
 
           currentQuestions.forEach(existingQ => {
+            if (!answersMatch(q, existingQ)) return;
             const sim = checkSimilarity(q.questionText, existingQ.questionText);
             if (sim > maxSim) {
               maxSim = sim;

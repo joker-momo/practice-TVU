@@ -56,6 +56,37 @@ function checkSimilarity(text1, text2) {
 }
 
 /**
+ * Lấy đáp án đúng dưới dạng chuẩn hóa để đối chiếu giữa các câu hỏi.
+ * Với câu điền từ, đáp án là nội dung nằm trong marker {{...}}.
+ * @param {object} question
+ * @returns {string}
+ */
+function normalizedCorrectAnswer(question) {
+  const options = Array.isArray(question?.options) ? question.options : [];
+  const correctOption = options[Number(question?.correctIndex)];
+  if (String(correctOption || "").trim()) {
+    return normalizeText(String(correctOption));
+  }
+
+  const fillAnswers = [...String(question?.questionText || "").matchAll(/\{\{(.+?)\}\}/g)]
+    .map(([, answer]) => answer)
+    .join(" ");
+  return normalizeText(fillAnswers);
+}
+
+/**
+ * Hai câu có cùng đáp án đúng khi nội dung đáp án khớp sau chuẩn hóa.
+ * @param {object} firstQuestion
+ * @param {object} secondQuestion
+ * @returns {boolean}
+ */
+function answersMatch(firstQuestion, secondQuestion) {
+  const firstAnswer = normalizedCorrectAnswer(firstQuestion);
+  const secondAnswer = normalizedCorrectAnswer(secondQuestion);
+  return Boolean(firstAnswer) && firstAnswer === secondAnswer;
+}
+
+/**
  * Tạo ID ngẫu nhiên duy nhất
  * @returns {string}
  */
