@@ -126,8 +126,7 @@ function initQuiz(container, store) {
           <div class="options-grid">
       `;
 
-      // Render 4 đáp án
-      const alphabet = ["A", "B", "C", "D"];
+      // Render đáp án (chữ cái sinh động, không giới hạn 4)
       q.options.forEach((opt, idx) => {
         if (!opt) return; // Nếu đáp án trống thì không hiển thị
         
@@ -143,7 +142,7 @@ function initQuiz(container, store) {
 
         html += `
           <button class="option-card ${cardClass}" data-idx="${idx}" ${hasSelected ? 'disabled' : ''}>
-            <span class="option-marker">${alphabet[idx]}</span>
+            <span class="option-marker">${String.fromCharCode(65 + idx)}</span>
             <span>${opt}</span>
           </button>
         `;
@@ -154,7 +153,7 @@ function initQuiz(container, store) {
 
           <!-- Panel giải thích hiển thị sau khi chọn -->
           <div class="explanation-panel" id="explanation-box" style="display: ${hasSelected ? 'flex' : 'none'};">
-            <div class="explanation-correct-ans">Đáp án đúng: ${alphabet[q.correctIndex]}. ${q.options[q.correctIndex] || ''}</div>
+            <div class="explanation-correct-ans">Đáp án đúng: ${String.fromCharCode(65 + q.correctIndex)}. ${q.options[q.correctIndex] || ''}</div>
             <div class="explanation-content" style="white-space: pre-line;">${q.explanation || 'Không có giải thích chi tiết cho câu hỏi này.'}</div>
           </div>
 

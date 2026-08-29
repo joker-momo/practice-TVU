@@ -66,7 +66,6 @@ function initFlashcard(container, store) {
 
     const q = questions[currentIndex];
     const total = questions.length;
-    const alphabet = ["A", "B", "C", "D"];
     const attempts = q.history?.attempts || 0;
     const correct = q.history?.correct || 0;
 
@@ -103,7 +102,7 @@ function initFlashcard(container, store) {
 
               <div style="width: 100%; text-align: left; margin: 1rem 0;">
                 <div style="font-size: 1.25rem; font-weight: 700; color: var(--success); margin-bottom: 1rem;">
-                  Đáp án đúng: ${alphabet[q.correctIndex]}. ${q.options[q.correctIndex] || ''}
+                  Đáp án đúng: ${String.fromCharCode(65 + q.correctIndex)}. ${q.options[q.correctIndex] || ''}
                 </div>
                 <div class="explanation-panel" style="animation: none;">
                   <span class="explanation-title">Giải thích</span>
