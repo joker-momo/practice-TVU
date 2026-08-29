@@ -15,8 +15,65 @@ function normalizeTextForComparison(text) {
 }
 
 /**
+ * Tìm chỉ số option khớp với một đáp án mục tiêu, thử lần lượt các tầng so khớp
+ * (chính xác có/không nhãn → chuẩn hóa có/không nhãn → nhãn chữ cái → substring chuẩn hóa).
+ * Dùng chung cho luồng 1-đáp-án và luồng multi-choice (nhiều đáp án phân tách bằng ";").
+ * @param {string} targetAnswer
+ * @param {string[]} cleanOptions - option đã bóc nhãn
+ * @param {string[]} rawOptions - option gốc còn nhãn "A. "
+ * @returns {number} chỉ số khớp được, -1 nếu không khớp
+ */
+function matchOptionIndex(targetAnswer, cleanOptions, rawOptions) {
+  const target = String(targetAnswer || "").trim();
+  if (!target) return -1;
+  const targetLower = target.toLowerCase();
+  const normTarget = normalizeTextForComparison(target);
+
+  // 1. So khớp chính xác hoàn toàn với cleanOptions (nội dung sạch)
+  for (let i = 0; i < cleanOptions.length; i++) {
+    if (cleanOptions[i].toLowerCase() === targetLower) return i;
+  }
+
+  // 2. So khớp chính xác hoàn toàn với rawOptions (cả nhãn)
+  for (let i = 0; i < rawOptions.length; i++) {
+    if (String(rawOptions[i]).trim().toLowerCase() === targetLower) return i;
+  }
+
+  // 3. So khớp chuẩn hóa với cleanOptions
+  if (normTarget) {
+    for (let i = 0; i < cleanOptions.length; i++) {
+      if (normalizeTextForComparison(cleanOptions[i]) === normTarget) return i;
+    }
+  }
+
+  // 4. So khớp chuẩn hóa với rawOptions
+  if (normTarget) {
+    for (let i = 0; i < rawOptions.length; i++) {
+      if (normalizeTextForComparison(rawOptions[i]) === normTarget) return i;
+    }
+  }
+
+  // 5. Kiểm tra nếu target chỉ là một nhãn chữ cái (A, B, C... không giới hạn D) hoặc "đáp án A", "câu A"
+  const labelMatch = target.match(/^(đáp án|câu|chọn)?\s*([a-z])\.?$/i);
+  if (labelMatch) {
+    const idx = labelMatch[2].toUpperCase().charCodeAt(0) - 65;
+    if (idx >= 0 && idx < cleanOptions.length) return idx;
+  }
+
+  // 6. So khớp tương đối bằng chứa chuỗi (substring) trên văn bản chuẩn hóa
+  if (normTarget) {
+    for (let i = 0; i < cleanOptions.length; i++) {
+      const normOpt = normalizeTextForComparison(cleanOptions[i]);
+      if (normOpt && (normOpt.includes(normTarget) || normTarget.includes(normOpt))) return i;
+    }
+  }
+
+  return -1;
+}
+
+/**
  * Chuyển đổi định dạng JSON câu hỏi tiếng Việt tùy chỉnh của người dùng sang định dạng hệ thống
- * @param {Array} jsonArray 
+ * @param {Array} jsonArray
  * @returns {Array}
  */
 function convertCustomJSONToQuestions(jsonArray) {
@@ -44,8 +101,8 @@ function convertCustomJSONToQuestions(jsonArray) {
 
     const cleanOptions = rawOptions.map(opt => {
       if (typeof opt !== 'string') return String(opt || '').trim();
-      // Bóc tách nhãn "A. ", "B. ", "A) ", "B) " ở đầu
-      const match = opt.match(/^\s*([A-D])\s*(?:([\.\)\:])\s*(.*)|([\-\/])\s+(.*))/i);
+      // Bóc tách nhãn "A. ", "B. ", "A) ", "B) " ở đầu (không giới hạn A-D, hỗ trợ E/F... cho multi-choice)
+      const match = opt.match(/^\s*([A-Za-z])\s*(?:([\.\)\:])\s*(.*)|([\-\/])\s+(.*))/i);
       if (match) {
         const content = match[3] !== undefined ? match[3] : match[5];
         return content.trim();
@@ -57,76 +114,6 @@ function convertCustomJSONToQuestions(jsonArray) {
       cleanOptions.push("");
     }
 
-    const targetAnswer = (item.dap_an_dung || "").trim();
-    let correctIndex = -1;
-
-    if (targetAnswer) {
-      const targetLower = targetAnswer.toLowerCase();
-      const normTarget = normalizeTextForComparison(targetAnswer);
-
-      // 1. So khớp chính xác hoàn toàn với cleanOptions (nội dung sạch)
-      for (let i = 0; i < cleanOptions.length; i++) {
-        if (cleanOptions[i].toLowerCase() === targetLower) {
-          correctIndex = i;
-          break;
-        }
-      }
-
-      // 2. So khớp chính xác hoàn toàn với rawOptions (cả nhãn)
-      if (correctIndex === -1) {
-        for (let i = 0; i < rawOptions.length; i++) {
-          if (rawOptions[i].trim().toLowerCase() === targetLower) {
-            correctIndex = i;
-            break;
-          }
-        }
-      }
-
-      // 3. So khớp chuẩn hóa với cleanOptions
-      if (correctIndex === -1 && normTarget) {
-        for (let i = 0; i < cleanOptions.length; i++) {
-          if (normalizeTextForComparison(cleanOptions[i]) === normTarget) {
-            correctIndex = i;
-            break;
-          }
-        }
-      }
-
-      // 4. So khớp chuẩn hóa với rawOptions
-      if (correctIndex === -1 && normTarget) {
-        for (let i = 0; i < rawOptions.length; i++) {
-          if (normalizeTextForComparison(rawOptions[i]) === normTarget) {
-            correctIndex = i;
-            break;
-          }
-        }
-      }
-
-      // 5. Kiểm tra nếu dap_an_dung chỉ là một nhãn chữ cái (A, B, C, D) hoặc "đáp án A", "câu A"
-      if (correctIndex === -1) {
-        const labelMatch = targetAnswer.match(/^(đáp án|câu|chọn)?\s*([a-d])\.?$/i);
-        if (labelMatch) {
-          const letter = labelMatch[2].toUpperCase();
-          correctIndex = letter.charCodeAt(0) - 65;
-        }
-      }
-
-      // 6. So khớp tương đối bằng chứa chuỗi (substring) trên văn bản chuẩn hóa
-      if (correctIndex === -1 && normTarget) {
-        for (let i = 0; i < cleanOptions.length; i++) {
-          const normOpt = normalizeTextForComparison(cleanOptions[i]);
-          if (normOpt && (normOpt.includes(normTarget) || normTarget.includes(normOpt))) {
-            correctIndex = i;
-            break;
-          }
-        }
-      }
-    }
-
-    if (correctIndex === -1) {
-      correctIndex = 0;
-    }
-
     let explanation = item.giai_thich || "";
     if (item.tham_khao) {
       if (explanation) {
@@ -136,10 +123,42 @@ function convertCustomJSONToQuestions(jsonArray) {
       }
     }
 
+    // Câu multi-choice: dap_an_dung liệt kê ≥2 đáp án phân tách bằng ";",
+    // mỗi phần khớp được MỘT option riêng biệt (không trùng lặp) trong cleanOptions.
+    const rawTarget = item.dap_an_dung || "";
+    const targetParts = rawTarget.split(";").map(p => p.trim()).filter(Boolean);
+
+    if (targetParts.length >= 2) {
+      const matchedIndexes = new Set();
+      const allMatched = targetParts.every(part => {
+        const idx = matchOptionIndex(part, cleanOptions, rawOptions);
+        if (idx === -1 || matchedIndexes.has(idx)) return false;
+        matchedIndexes.add(idx);
+        return true;
+      });
+      if (allMatched) {
+        const multiOptions = cleanOptions.map((opt, i) => matchedIndexes.has(i) ? "{{" + opt + "}}" : opt);
+        return {
+          questionText: cauHoi,
+          codeSnippet: "",
+          options: multiOptions,
+          correctIndex: 0,
+          explanation: explanation
+        };
+      }
+    }
+
+    // Luồng 1-đáp-án (mặc định): nếu dap_an_dung có ";" nhưng không đủ ≥2 khớp,
+    // dùng PHẦN ĐẦU TIÊN làm đáp án mục tiêu (không dùng toàn chuỗi có ";" — tránh
+    // so khớp mơ hồ qua tầng substring của matchOptionIndex).
+    const targetAnswer = (targetParts[0] || rawTarget).trim();
+    const foundIndex = matchOptionIndex(targetAnswer, cleanOptions, rawOptions);
+    const correctIndex = foundIndex === -1 ? 0 : foundIndex;
+
     return {
-      questionText: item.cau_hoi || "",
+      questionText: cauHoi,
       codeSnippet: "",
-      options: cleanOptions.slice(0, 4),
+      options: cleanOptions,
       correctIndex: correctIndex,
       explanation: explanation
     };
