@@ -69,7 +69,7 @@ function normalizedCorrectAnswer(question) {
     .filter(o => /^\{\{.+\}\}$/.test(String(o || "").trim()))
     .map(o => stripAnswerMarker(o));
   if (wrappedAnswers.length >= 2) {
-    return normalizeText(wrappedAnswers.slice().sort().join(" "));
+    return wrappedAnswers.map(a => normalizeText(a)).sort().join("|");
   }
 
   const correctOption = options[Number(question?.correctIndex)];
