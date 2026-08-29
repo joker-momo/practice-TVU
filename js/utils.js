@@ -63,6 +63,15 @@ function checkSimilarity(text1, text2) {
  */
 function normalizedCorrectAnswer(question) {
   const options = Array.isArray(question?.options) ? question.options : [];
+
+  // Multi-choice: đáp án đúng là các phần tử được bọc TRỌN {{...}}, không phải options[correctIndex]
+  const wrappedAnswers = options
+    .filter(o => /^\{\{.+\}\}$/.test(String(o || "").trim()))
+    .map(o => stripAnswerMarker(o));
+  if (wrappedAnswers.length >= 2) {
+    return normalizeText(wrappedAnswers.slice().sort().join(" "));
+  }
+
   const correctOption = options[Number(question?.correctIndex)];
   if (String(correctOption || "").trim()) {
     return normalizeText(String(correctOption));
@@ -126,4 +135,28 @@ function renderFillText(questionText, mode) {
       ? '<span class="fill-answer">' + ans + '</span>'
       : '<span class="fill-blank">______</span>'
   );
+}
+
+/**
+ * Câu hỏi multi-choice (nhiều đáp án đúng)? Điều kiện: options là mảng có
+ * ≥ 2 phần tử được bọc TRỌN VẸN bằng {{...}} (đánh dấu đáp án đúng).
+ * @param {object} q
+ * @returns {boolean}
+ */
+function isMultiChoiceQuestion(q) {
+  if (!q || !Array.isArray(q.options)) return false;
+  const wrapped = q.options.filter(o => /^\{\{.+\}\}$/.test(String(o || "").trim()));
+  return wrapped.length >= 2;
+}
+
+/**
+ * Bỏ marker {{...}} bọc trọn một chuỗi option, trả về text hiển thị.
+ * Nếu chuỗi không được bọc trọn, trả về nguyên văn (đã trim).
+ * @param {string} optionText
+ * @returns {string}
+ */
+function stripAnswerMarker(optionText) {
+  const trimmed = String(optionText || "").trim();
+  const m = trimmed.match(/^\{\{(.+)\}\}$/);
+  return m ? m[1] : trimmed;
 }
