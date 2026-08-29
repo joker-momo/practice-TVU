@@ -534,7 +534,8 @@ function initEditor(container, store) {
   const showQuestionModal = (question = null) => {
     const isEdit = !!question;
     // Câu điền từ / multi-choice: đáp án không sửa qua 4 ô A-D được (dữ liệu không khớp shape đó)
-    const isReadOnlyAnswers = isEdit && (isFillQuestion(question) || isMultiChoiceQuestion(question));
+    const hasTooManyOptions = isEdit && Array.isArray(question.options) && question.options.length > 4;
+    const isReadOnlyAnswers = isEdit && (isFillQuestion(question) || isMultiChoiceQuestion(question) || hasTooManyOptions);
     const modalHtml = `
       <div class="modal-overlay" id="question-modal">
         <div class="modal-card" style="max-width: 600px;">
@@ -550,7 +551,7 @@ function initEditor(container, store) {
             </div>
             ${isReadOnlyAnswers ? `
             <div class="form-group">
-              <label class="form-label">Đáp án (dạng ${isFillQuestion(question) ? 'điền từ' : 'nhiều đáp án'} — chỉ xem, sửa qua Dán JSON hoặc Xuất/Nhập file)</label>
+              <label class="form-label">Đáp án (${isFillQuestion(question) ? 'dạng điền từ' : isMultiChoiceQuestion(question) ? 'dạng nhiều đáp án' : 'có hơn 4 lựa chọn'} — chỉ xem, sửa qua Dán JSON hoặc Xuất/Nhập file)</label>
               <div class="form-control" style="white-space: pre-line; min-height: auto;">${
                 isFillQuestion(question)
                   ? renderFillText(question.questionText, "answer")
@@ -964,6 +965,7 @@ function initEditor(container, store) {
         const badgeText = dup.isDuplicate ? `Trùng ${Math.round(dup.similarity * 100)}%` : 'Hợp lệ';
         const isFill = isFillQuestion(q);
         const isMulti = isMultiChoiceQuestion(q);
+        const hasTooManyOptions = Array.isArray(q.options) && q.options.length > 4;
         let statusText = '';
         if (dup.isDuplicate) {
           statusText = dup.overwrite ? ' (Sẽ ghi đè)' : (q.selected ? ' (Sẽ thêm mới)' : ' (Bỏ qua)');
@@ -995,7 +997,7 @@ function initEditor(container, store) {
                 <label class="form-label">Câu hỏi</label>
                 <textarea class="form-control field-q-text" rows="2">${q.questionText}</textarea>
               </div>
-              ${(isFill || isMulti) ? `
+              ${(isFill || isMulti || hasTooManyOptions) ? `
               <div class="form-group">
                 <label class="form-label">Xem trước (đáp án trong {{...}})</label>
                 <div class="form-control" style="white-space: pre-line; min-height: auto;">${
