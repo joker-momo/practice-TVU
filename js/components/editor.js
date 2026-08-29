@@ -963,6 +963,7 @@ function initEditor(container, store) {
         const badgeClass = !dup.isDuplicate ? 'badge-clean' : (isExact ? 'badge-duplicate' : 'badge-near');
         const badgeText = dup.isDuplicate ? `Trùng ${Math.round(dup.similarity * 100)}%` : 'Hợp lệ';
         const isFill = isFillQuestion(q);
+        const isMulti = isMultiChoiceQuestion(q);
         let statusText = '';
         if (dup.isDuplicate) {
           statusText = dup.overwrite ? ' (Sẽ ghi đè)' : (q.selected ? ' (Sẽ thêm mới)' : ' (Bỏ qua)');
@@ -972,7 +973,7 @@ function initEditor(container, store) {
           <div class="scanned-q-card ${q.expanded ? 'expanded' : ''}" data-id="${q.id}">
             <div class="scanned-q-header">
               <input type="checkbox" class="scanned-q-checkbox card-select-check" ${q.selected ? 'checked' : ''} />
-              <span class="scanned-q-title">${isFill ? '<span class="fill-badge">Điền từ</span>' : ''}Câu ${idx + 1}: ${q.questionText || "[Không có nội dung câu hỏi]"}</span>
+              <span class="scanned-q-title">${isFill ? '<span class="fill-badge">Điền từ</span>' : ''}${isMulti ? '<span class="fill-badge">Nhiều đáp án</span>' : ''}Câu ${idx + 1}: ${q.questionText || "[Không có nội dung câu hỏi]"}</span>
               <span class="scanned-q-badge ${badgeClass}">${badgeText}${statusText}</span>
               <span class="scanned-q-toggle-icon">▼</span>
             </div>
@@ -994,10 +995,14 @@ function initEditor(container, store) {
                 <label class="form-label">Câu hỏi</label>
                 <textarea class="form-control field-q-text" rows="2">${q.questionText}</textarea>
               </div>
-              ${isFill ? `
+              ${(isFill || isMulti) ? `
               <div class="form-group">
                 <label class="form-label">Xem trước (đáp án trong {{...}})</label>
-                <div class="form-control" style="white-space: pre-line; min-height: auto;">${renderFillText(q.questionText, "answer")}</div>
+                <div class="form-control" style="white-space: pre-line; min-height: auto;">${
+                  isFill
+                    ? renderFillText(q.questionText, "answer")
+                    : renderFillText(q.options.map(o => String(o || "").trim()).join("\n"), "answer")
+                }</div>
               </div>
               ` : `
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
