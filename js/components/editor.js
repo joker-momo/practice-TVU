@@ -533,6 +533,8 @@ function initEditor(container, store) {
   // --- MODAL THÊM/SỬA CÂU HỎI THỦ CÔNG ---
   const showQuestionModal = (question = null) => {
     const isEdit = !!question;
+    // Câu điền từ / multi-choice: đáp án không sửa qua 4 ô A-D được (dữ liệu không khớp shape đó)
+    const isReadOnlyAnswers = isEdit && (isFillQuestion(question) || isMultiChoiceQuestion(question));
     const modalHtml = `
       <div class="modal-overlay" id="question-modal">
         <div class="modal-card" style="max-width: 600px;">
@@ -546,6 +548,16 @@ function initEditor(container, store) {
               <textarea id="q-text" class="form-control" placeholder="Nhập nội dung câu hỏi...">${isEdit ? question.questionText : ''}</textarea>
               <p class="form-hint">Dạng điền từ: bọc đáp án bằng {{...}} ngay trong nội dung (ví dụ: "the {{online catalogue}}"), bỏ trống các ô A–D bên dưới.</p>
             </div>
+            ${isReadOnlyAnswers ? `
+            <div class="form-group">
+              <label class="form-label">Đáp án (dạng ${isFillQuestion(question) ? 'điền từ' : 'nhiều đáp án'} — chỉ xem, sửa qua Dán JSON hoặc Xuất/Nhập file)</label>
+              <div class="form-control" style="white-space: pre-line; min-height: auto;">${
+                isFillQuestion(question)
+                  ? renderFillText(question.questionText, "answer")
+                  : renderFillText(question.options.map(o => String(o || "").trim()).join("\n"), "answer")
+              }</div>
+            </div>
+            ` : `
             <div style="display: grid; grid-template-cols: 1fr 1fr; gap: 1rem;">
               <div class="form-group">
                 <label class="form-label">Đáp án A</label>
@@ -573,6 +585,7 @@ function initEditor(container, store) {
                 <option value="3" ${isEdit && question.correctIndex === 3 ? 'selected' : ''}>D</option>
               </select>
             </div>
+            `}
             <div class="form-group">
               <label class="form-label">Giải thích chi tiết</label>
               <textarea id="q-explanation" class="form-control" placeholder="Giải thích tại sao đáp án đó đúng...">${isEdit ? question.explanation : ''}</textarea>
@@ -601,11 +614,6 @@ function initEditor(container, store) {
       const qText = modal.querySelector('#q-text').value.trim();
       // Ô nhập Code Snippet đã bỏ khỏi form; giữ nguyên giá trị cũ khi sửa để không mất dữ liệu
       const qCode = isEdit ? (question.codeSnippet || "") : "";
-      const optA = modal.querySelector('#opt-a').value.trim();
-      const optB = modal.querySelector('#opt-b').value.trim();
-      const optC = modal.querySelector('#opt-c').value.trim();
-      const optD = modal.querySelector('#opt-d').value.trim();
-      const correctIdx = parseInt(modal.querySelector('#correct-idx').value);
       const explanation = modal.querySelector('#q-explanation').value.trim();
 
       if (!qText) {
@@ -614,10 +622,25 @@ function initEditor(container, store) {
         return;
       }
 
+      // Câu điền từ / multi-choice: ô đáp án bị ẩn khỏi form, giữ nguyên options/correctIndex gốc
+      let options, correctIdx;
+      if (isReadOnlyAnswers) {
+        options = question.options;
+        correctIdx = question.correctIndex;
+      } else {
+        options = [
+          modal.querySelector('#opt-a').value.trim(),
+          modal.querySelector('#opt-b').value.trim(),
+          modal.querySelector('#opt-c').value.trim(),
+          modal.querySelector('#opt-d').value.trim()
+        ];
+        correctIdx = parseInt(modal.querySelector('#correct-idx').value);
+      }
+
       const questionData = {
         questionText: qText,
         codeSnippet: qCode,
-        options: [optA, optB, optC, optD],
+        options: options,
         correctIndex: correctIdx,
         explanation: explanation
       };
