@@ -321,12 +321,18 @@ function initEditor(container, store) {
         const progressPercent = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
         const starIcon = q.isBookmarked ? "★" : "☆";
         const isFill = isFillQuestion(q);
+        const isMulti = isMultiChoiceQuestion(q);
+        const optionCount = Array.isArray(q.options) ? q.options.length : 0;
         const ci = typeof q.correctIndex === "number" ? q.correctIndex : 0;
-        const correctLetter = ci >= 0 && ci < 4 ? String.fromCharCode(65 + ci) : "?";
+        const correctLetter = ci >= 0 && ci < optionCount ? String.fromCharCode(65 + ci) : "?";
         const correctText = (q.options && q.options[ci]) ? q.options[ci] : "(chưa có)";
         // Câu điền từ: cột "Đáp án đúng" liệt kê đáp án các ô trống
         const fillAnswers = isFill
           ? [...q.questionText.matchAll(/\{\{(.+?)\}\}/g)].map(m => m[1]).join(" · ")
+          : "";
+        // Câu multi-choice: cột "Đáp án đúng" liệt kê các đáp án được bọc {{...}}
+        const multiAnswers = isMulti
+          ? q.options.filter(o => /^\{\{.+\}\}$/.test(String(o || "").trim())).map(stripAnswerMarker).join(" · ")
           : "";
 
         html += `
@@ -334,12 +340,15 @@ function initEditor(container, store) {
             <td class="stt-cell">${idx + 1}</td>
             <td>
               ${isFill ? '<span class="fill-badge">Điền từ</span>' : ''}
+              ${isMulti ? '<span class="fill-badge">Nhiều đáp án</span>' : ''}
               <div class="question-row-text">${isFill ? renderFillText(q.questionText, "answer") : q.questionText}</div>
               ${q.codeSnippet ? `<span style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--bg-base); padding: 0.1rem 0.3rem; border-radius: 4px; color: var(--accent);">[Có code snippet]</span>` : ''}
             </td>
             <td class="answer-correct-cell">${isFill
-              ? renderFillText(fillAnswers ? "{{" + fillAnswers + "}}" : "", "answer") || "(chưa có)"
-              : `<strong>${correctLetter}.</strong> ${correctText}`}</td>
+              ? (renderFillText(fillAnswers ? "{{" + fillAnswers + "}}" : "", "answer") || "(chưa có)")
+              : isMulti
+                ? (renderFillText(multiAnswers ? "{{" + multiAnswers + "}}" : "", "answer") || "(chưa có)")
+                : `<strong>${correctLetter}.</strong> ${correctText}`}</td>
             <td style="font-size: 0.9rem;">
               <span style="font-weight: 600; color: ${progressPercent > 50 ? 'var(--success)' : 'var(--text-muted)'}">
                 ${progressPercent}% (${correct}/${attempts})
