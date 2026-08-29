@@ -33,7 +33,7 @@ function initFlashcard(container, store) {
     }
 
     // Câu điền từ chưa có UI thẻ nhớ → ẩn khỏi chế độ flashcard
-    const questions = (subject.questions || []).filter(q => !isFillQuestion(q));
+    const questions = (subject.questions || []).filter(q => !isFillQuestion(q) && !isMultiChoiceQuestion(q));
 
     if (questions.length === 0) {
       container.innerHTML = `

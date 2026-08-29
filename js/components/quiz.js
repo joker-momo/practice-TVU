@@ -63,7 +63,7 @@ function initQuiz(container, store) {
     }
 
     // Câu điền từ chưa có UI làm bài → ẩn khỏi chế độ luyện tập
-    const questions = (subject.questions || []).filter(q => !isFillQuestion(q));
+    const questions = (subject.questions || []).filter(q => !isFillQuestion(q) && !isMultiChoiceQuestion(q));
 
     if (questions.length === 0) {
       container.innerHTML = `
@@ -230,7 +230,7 @@ function initQuiz(container, store) {
     const activeState = store.state;
     const subject = activeState.subjects.find(s => s.id === activeState.currentSubjectId);
     if (!subject) return;
-    const questions = (subject.questions || []).filter(q => !isFillQuestion(q));
+    const questions = (subject.questions || []).filter(q => !isFillQuestion(q) && !isMultiChoiceQuestion(q));
     if (questions.length === 0) return;
 
     if (!hasSelected) {
