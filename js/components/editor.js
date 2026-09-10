@@ -195,9 +195,11 @@ function extractParsedQuestions(data) {
 function initEditor(container, store) {
   // Parse raw JSON -> mở modal xem trước import. Dùng chung cho nút file & nút dán.
   const importFromRawJSON = (rawText) => {
+    // Nếu lỡ dán kèm markdown code fence (```json ... ```), tự bóc ra trước khi parse
+    const cleanedText = rawText.trim().replace(/^```[a-zA-Z]*\n?/, "").replace(/```\s*$/, "").trim();
     let data;
     try {
-      data = JSON.parse(rawText);
+      data = JSON.parse(cleanedText);
     } catch (err) {
       alert("Lỗi phân tích cú pháp JSON: " + err.message);
       return false;
