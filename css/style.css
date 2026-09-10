@@ -1224,6 +1224,12 @@ textarea.form-control {
   white-space: nowrap;
 }
 
+/* Câu hỏi multi-choice (nhiều đáp án đúng): cùng kiểu badge nhưng màu khác để phân biệt với "Điền từ" */
+.multi-badge {
+  color: var(--success);
+  border-color: var(--success);
+}
+
 .fill-blank {
   border-bottom: 2px solid var(--text-muted);
   padding: 0 0.35rem;

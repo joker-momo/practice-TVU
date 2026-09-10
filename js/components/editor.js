@@ -342,7 +342,7 @@ function initEditor(container, store) {
             <td class="stt-cell">${idx + 1}</td>
             <td>
               ${isFill ? '<span class="fill-badge">Điền từ</span>' : ''}
-              ${isMulti ? '<span class="fill-badge">Nhiều đáp án</span>' : ''}
+              ${isMulti ? '<span class="fill-badge multi-badge">Nhiều đáp án</span>' : ''}
               <div class="question-row-text">${isFill ? renderFillText(q.questionText, "answer") : q.questionText}</div>
               ${q.codeSnippet ? `<span style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--bg-base); padding: 0.1rem 0.3rem; border-radius: 4px; color: var(--accent);">[Có code snippet]</span>` : ''}
             </td>
@@ -977,7 +977,7 @@ function initEditor(container, store) {
           <div class="scanned-q-card ${q.expanded ? 'expanded' : ''}" data-id="${q.id}">
             <div class="scanned-q-header">
               <input type="checkbox" class="scanned-q-checkbox card-select-check" ${q.selected ? 'checked' : ''} />
-              <span class="scanned-q-title">${isFill ? '<span class="fill-badge">Điền từ</span>' : ''}${isMulti ? '<span class="fill-badge">Nhiều đáp án</span>' : ''}Câu ${idx + 1}: ${q.questionText || "[Không có nội dung câu hỏi]"}</span>
+              <span class="scanned-q-title">${isFill ? '<span class="fill-badge">Điền từ</span>' : ''}${isMulti ? '<span class="fill-badge multi-badge">Nhiều đáp án</span>' : ''}Câu ${idx + 1}: ${q.questionText || "[Không có nội dung câu hỏi]"}</span>
               <span class="scanned-q-badge ${badgeClass}">${badgeText}${statusText}</span>
               <span class="scanned-q-toggle-icon">▼</span>
             </div>
